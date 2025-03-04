@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using CS296N_TermProject_RMyers.Data;
 using Microsoft.AspNetCore.Mvc;
 using CS296N_TermProject_RMyers.Models;
 

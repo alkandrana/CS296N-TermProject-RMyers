@@ -1,0 +1,68 @@
+@model RegisterVM
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="navbar navbar-left container-fluid dataDisplay">
+    <div class="row">
+        <ul class="list-unstyled col-md-3 navigation p-0 m-0">
+            <li class="bg-dark m-3">
+                <a asp-action="Index" asp-controller="Library" class="text-center p-2 text-light">Search</a>
+            </li>
+            <li class="bg-dark m-3">
+                <a asp-action="ContributionForm" asp-controller="Library" class="text-center p-2 text-light">Contribution Form</a>
+            </li>
+        </ul>
+        <div class="col-md-9 main">
+            <h2 class="p-5">Register</h2>
+            <p class="lh-lg fs-3 fst-italic">
+                For the purposes of our records, we must have a user profile with which to associate your contribution.
+                However, for your own protection, we strongly recommend that you do not leave your legal name.
+                Feel free to use your creativity in crafting an appropriate label.
+            </p>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <form method="post" asp-action="Register">
+                <div class="row p-5">
+                    <label class="col-form-label col-md-4">User Name:</label>
+                    <div class="col-md-8">
+                        <input asp-for="Username" class="form-control"/>
+                    </div>
+                    <div class="col">
+                        <span asp-validation-for="Username"></span>
+                    </div>
+                </div>
+                <div class="row p-5">
+                    <label class="col-form-label col-md-4">Password:</label>
+                    <div class="col-md-8">
+                        <input asp-for="Password" class="form-control"/>
+                    </div>
+                    <div class="col">
+                        <span asp-validation-for="Password"></span>
+                    </div>
+                </div>
+                <div class="row p-5">
+                    <label class="col-form-label col-md-4">Confirm Password:</label>
+                    <div class="col-md-8">
+                        <input asp-for="ConfirmPassword" class="form-control"/>
+                    </div>
+                    <div class="col">
+                        <span asp-validation-for="ConfirmPassword"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col offset-md-8">
+                        <button type="submit" class="btn btn-primary me-2">Register</button>
+                        <a asp-action="Index" asp-controller="Home" class="btn btn-danger">Cancel</a>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col offset-md-8">
+                        Already registered? <a asp-action="LogIn">Log In</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

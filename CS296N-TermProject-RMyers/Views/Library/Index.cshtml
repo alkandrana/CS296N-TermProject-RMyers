@@ -1,0 +1,58 @@
+@model Article
+@{
+    ViewData["Title"] = "Library Catalog";
+}
+
+<div class="navbar navbar-left container-fluid dataDisplay">
+    <div class="row">
+        <ul class="list-unstyled col-md-3 navigation p-0 m-0">
+            <li class="bg-dark m-3">
+                <a asp-action="Index" asp-controller="Library" class="text-center p-2 text-light">Search</a>
+            </li>
+            <li class="bg-dark m-3">
+                <a asp-action="ContributionForm" asp-controller="Library" class="text-center p-2 text-light">Contribution Form</a>
+            </li>
+            <li class="m-3">
+                <form asp-action="SearchReader" asp-controller="Library" class="container">
+                    <div class="row">
+                        <input type="text" placeholder="Enter a title, keyword, topic, etc..." name="key" class="col-md-10">
+                        <button type="submit" class="col-md-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </form>
+            </li>
+        </ul>
+        <div class="col-9 main ms-0">
+            <h1 class="text-center">Welcome to the Library Catalog</h1>
+            <p class="pt-5 lh-lg fst-italic fs-4">
+                Follow the links on the left to contribute an entry to the Library's vaults; 
+                use the search function to search for a specific article; 
+                or check out our featured article below.
+            </p>
+            <div class="mt-5">
+                <h2 class="text-center">Featured Article:</h2>
+                @if (Model.Content != "")
+                {
+                    string[] formatted = Model.Content.Split("\n");
+                    <h3 class="text-center pb-3">@Model.Title</h3>
+                    
+                    
+                    foreach (string par in formatted)
+                    {
+                        if (par.StartsWith("**"))
+                        {
+                            <h5 class="p-3">@par.Substring(2, par.Length - 4)</h5>
+                        }
+                        else if (par.Length < 100)
+                        {
+                            <h4 class="p3">@par</h4>
+                        }
+                        else
+                        {
+                            <p>@par</p>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
