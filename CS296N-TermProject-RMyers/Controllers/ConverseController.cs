@@ -1,10 +1,12 @@
 using CS296N_TermProject_RMyers.Data.Interfaces;
 using CS296N_TermProject_RMyers.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CS296N_TermProject_RMyers.Controllers;
 
+[Authorize]
 public class ConverseController : Controller
 {
     private IEntryRepository _repo;

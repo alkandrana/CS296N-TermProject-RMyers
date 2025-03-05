@@ -12,7 +12,7 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">The Library of Vermundi</a>
+            <a class="navbar-brand p-2" asp-area="" asp-controller="Home" asp-action="Index">The Library of Vermundi</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,7 +25,7 @@
                     <li class="dropdown">
                         <a class="btn btn-dark dropdown-toggle" asp-controller="Library" asp-action="Index" data-bs-toggle="dropdown">Library</a>
                         <ul class="dropdown-menu bg-dark text-light">
-                            <li><a class="dropdown-item text-light" asp-action="Search" asp-controller="Library">Search</a></li>
+                            <li><a class="dropdown-item text-light" asp-action="Index" asp-controller="Library">Search</a></li>
                             <li><a class="dropdown-item text-light" asp-action="Browse" asp-controller="Library">Browse</a></li>
                         </ul>
                     </li>

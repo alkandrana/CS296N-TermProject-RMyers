@@ -2,41 +2,30 @@
 @{
     ViewData["Title"] = "Browse the Library";
 }
-<div class="navbar navbar-left container-fluid dataDisplay">
-    <div class="row">
-        <ul class="list-unstyled col-3 navigation p-0 m-0">
-            <li class="bg-dark">
-                <a asp-action="Index" asp-controller="Browse" class="text-center p-2 text-light">Browse</a>
-            </li>
-        </ul>
-        <div class="col-9 main ms-0 bg-black">
-            <div>
-                <h1 class="text-center">Browse the Library</h1>
-                <p class="pb-5 pt-5 divider fst-italic fs-4">
-                    Use the topics below to browse the contents of the Library. Each topic toggles to reveal the specific articles
-                    contained in that category. Follow the links to review a specific article.
-                </p>
-            </div>
+<div>
+    <h1 class="text-center">Browse the Library</h1>
+    <p class="pb-5 pt-5 px-2 divider fst-italic fs-4">
+        Use the topics below to browse the contents of the Library. Each topic toggles to reveal the specific articles
+        contained in that category. Follow the links to review a specific article.
+    </p>
+</div>
 
-            <div class="container pt-3">
-                <div class="row">
-                    @if (Model.Count > 0)
+<div class="container pt-3">
+    <div class="row">
+        @if (Model.Count > 0)
+        {
+            foreach (Category c in Model)
+            {
+                <details class="col-4 m-5">
+                    <summary class="p-1" style="font-size: x-large; font-weight: bolder">@c.Name</summary>
+                    @foreach (Article e in c.Entries)
                     {
-                        foreach (Category c in Model)
-                        {
-                            <details class="col-4 m-5">
-                                <summary class="p-1" style="font-size: x-large; font-weight: bolder">@c.Name</summary>
-                                @foreach (Article e in c.Entries)
-                                {
-                                    <p>
-                                        <a asp-action="Reader" asp-controller="Browse" asp-route-id="@e.ArticleId">@e.Title</a>
-                                    </p>
-                                }
-                            </details>
-                        }
+                        <p>
+                            <a asp-action="Reader" asp-controller="Browse" asp-route-id="@e.ArticleId">@e.Title</a>
+                        </p>
                     }
-                </div>
-            </div>
-        </div>
+                </details>
+            }
+        }
     </div>
 </div>

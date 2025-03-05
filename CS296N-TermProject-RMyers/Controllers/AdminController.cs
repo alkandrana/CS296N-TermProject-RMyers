@@ -2,10 +2,12 @@ using CS296N_TermProject_RMyers.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using CS296N_TermProject_RMyers.Models;
 using CS296N_TermProject_RMyers.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace CS296N_TermProject_RMyers.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
     private IEntryRepository _repo;

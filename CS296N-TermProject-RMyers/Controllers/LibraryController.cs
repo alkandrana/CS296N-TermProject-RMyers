@@ -1,10 +1,12 @@
 using CS296N_TermProject_RMyers.Data.Interfaces;
 using CS296N_TermProject_RMyers.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 
 namespace CS296N_TermProject_RMyers.Controllers;
 
+[Authorize]
 public class LibraryController : Controller
 {
     private IEntryRepository _repo;
