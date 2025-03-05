@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">The Library of Vermundi</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,17 +20,52 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="btn btn-dark dropdown-toggle" asp-controller="Library" asp-action="Index" data-bs-toggle="dropdown">Library</a>
+                        <ul class="dropdown-menu bg-dark text-light">
+                            <li><a class="dropdown-item text-light" asp-action="Search" asp-controller="Library">Search</a></li>
+                            <li><a class="dropdown-item text-light" asp-action="Browse" asp-controller="Library">Browse</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a class="nav-link text-light" asp-controller="Converse" asp-action="Index">Tea Room</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="dropdown">
+                        <a class="btn btn-dark dropdown-toggle" asp-action="Login" asp-controller="Account" data-bs-toggle="dropdown">Account</a>
+                        <ul class="dropdown-menu bg-dark">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>
+                                    <form method="post" asp-action="Logout" asp-controller="Account">
+                                        <span class="dropdown-item text-light">@User.Identity.Name</span>
+                                        <input type="submit" value="Log Out" class="dropdown-item text-light"/>
+                                    </form>
+                                </li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item text-light" asp-action="Index" asp-controller="Admin"><span class="fas fa-cog"></span>&nbsp;Admin</a>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                var action = ViewContext.RouteData.Values["action"]?.ToString();
+                                <li><a class="dropdown-item text-light" asp-action="Register" asp-controller="Account">Register</a></li>
+                                <li><a class="dropdown-item text-light" asp-action="Login" asp-controller="Account">Log In</a></li>
+                            }
+                        </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
-<div class="container">
+<div class="container text-light element-center">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
@@ -44,6 +79,7 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/c15e31b1d9.js" crossorigin="anonymous"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 @await RenderSectionAsync("Scripts", required: false)

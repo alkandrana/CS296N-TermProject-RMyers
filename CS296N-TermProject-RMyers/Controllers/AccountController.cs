@@ -16,16 +16,38 @@ public class AccountController : Controller
         _userManager = userMngr;
         _signInManager = signInMngr;
     }
-    // GET
-    public IActionResult Index()
-    {
-        return View();
-    }
-
-    public async Task<IActionResult> Login(string returnUrl = "")
+    public IActionResult Login(string returnUrl = "")
     {
         LoginVM model = new LoginVM{ReturnUrl = returnUrl};
         return View(model);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginVM model)
+    {
+        var result = await _signInManager.PasswordSignInAsync(
+            model.Username, model.Password, isPersistent: model.RememberMe, 
+            lockoutOnFailure: false);
+        if (result.Succeeded)
+        {
+            if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+            {
+                return Redirect(model.ReturnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        ModelState.AddModelError("", "Invalid username/password.");
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Index", "Home");
     }
 
     public IActionResult Register()
