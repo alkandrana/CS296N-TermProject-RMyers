@@ -21,7 +21,7 @@
                     @foreach (Article e in c.Entries)
                     {
                         <p>
-                            <a asp-action="Reader" asp-controller="Browse" asp-route-id="@e.ArticleId">@e.Title</a>
+                            <a asp-action="SearchById" asp-controller="Library" asp-route-id="@e.ArticleId">@e.Title</a>
                         </p>
                     }
                 </details>

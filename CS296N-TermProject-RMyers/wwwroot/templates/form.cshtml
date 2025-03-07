@@ -1,0 +1,48 @@
+@page
+@model CS296N_TermProject_RMyers.wwwroot.templates.form
+
+@{
+    Layout = null;
+}
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form method="post" action="">
+    <div class="row p-2">
+        <label asp-for="Title" class="col-form-label col-md-2 mb-3">Title</label>
+        <div class="col-md-4">
+            <input id="title" asp-for="Title" class="form-control bg-secondary-subtle" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row p-2">
+        <label asp-for="TopicId" class="col-form-label col-md-2 mb-3">Topic</label>
+        <div class="col-md-2">
+            <select asp-for="TopicId" class="form-select">
+                <option value="">select a topic</option>
+                @foreach (Object o in ViewBag.Topics)
+                {
+                    <option value="@o.">@o.</option>
+                }
+            </select>
+        </div>
+        <div class="col">
+            <span asp-validation-for="TopicId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row p-2">
+        <label asp-for="Text" class="col-form-label col-md-2 mb-3">Enter your text here</label>
+        <div class="col-md-8">
+            <textarea asp-for="Text" class="form-control bg-info-subtle"></textarea>
+        </div>
+        <div class="col">
+            <span asp-validation-for="Text" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-md-2 offset-md-8">
+            <button type="submit" class="form-control btn btn-outline-warning">Submit</button>
+            <a asp-controller="Converse" asp-action="Index" class="btn btn-warning">Cancel</a>
+        </div>
+    </div>
+</form>

@@ -71,3 +71,9 @@ main {
 .dropdown-item {
   padding: .5rem;
 }
+
+#topic {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  border-radius: 0.8rem;
+}

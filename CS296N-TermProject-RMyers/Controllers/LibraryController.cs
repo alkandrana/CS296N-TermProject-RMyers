@@ -22,10 +22,10 @@ public class LibraryController : Controller
     {
         // display a featured article on the home page
         Random gen = new Random();
-        List<Article> entries = await _repo.GetAllEntriesAsync();
+        List<Article> entries = await _repo.GetAllArticlesAsync();
         // set variables random selection
         int max = entries.Count;
-        int id = gen.Next(1, max + 1);
+        int id = gen.Next(1, max);
         // send random selection to the view
         Article model = entries[id];
         return View(model);
@@ -39,13 +39,19 @@ public class LibraryController : Controller
         return View(categories);
     }
 
-    public async Task<IActionResult> Reader(string key)
+    public async Task<IActionResult> Search(string key)
     {
-        List<Article> entries = await _repo.GetAllEntriesAsync();
+        List<Article> entries = await _repo.GetAllArticlesAsync();
         // TODO: 1. return list of search results 2. search both title and contents
         Article? model = entries.FirstOrDefault(
             e => e.Title.ToLower().Contains(key.ToLower()));
-        return View(model);
+        return View("Reader", model);
+    }
+
+    public async Task<IActionResult> SearchById(int id)
+    {
+        Article? model = await _repo.GetArticleByIdAsync(id);
+        return View("Reader", model);
     }
     
     

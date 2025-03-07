@@ -1,0 +1,22 @@
+@model List<Article>
+
+@{
+    ViewBag.Title = "Article Selection";
+}
+
+<h2 class="pb-5">Article Selection</h2>
+<p class="fst-italic fs-5">
+    Each of the links below represents an article in the database.
+    Select one in order to edit it.
+</p>
+
+<ul>
+    @foreach (Article a in Model)
+    {
+        <li class="p-3 fs-5">
+            <a asp-action="Edit" asp-controller="Admin" asp-route-id="@a.ArticleId">
+                @a.Title
+            </a>
+        </li>
+    }
+</ul>

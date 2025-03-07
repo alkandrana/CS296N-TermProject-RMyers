@@ -11,11 +11,30 @@ public class EntryRepository : IEntryRepository
     {
         _context = ctx;
     }
-    public async Task<List<Article>> GetAllEntriesAsync()
+    public async Task<List<Article>> GetAllArticlesAsync()
     {
-        var entries = await _context.Entries.Include(e => e.Author).Include(
+        var entries = await _context.Articles.Include(e => e.Author).Include(
             e => e.Category).ToListAsync();
         return entries;
+    }
+
+    public async Task<List<Conversation>> GetAllConversationsAsync()
+    {
+        var conversations = await _context.Conversations.Include(
+                c => c.Category)
+            .Include(c => c.Responses)
+            .Include(c => c.Author)
+            .Include(c => c.Article)
+            .ToListAsync();
+        return conversations;
+    }
+
+    public async Task<List<Contribution>> GetAllContributionsAsync()
+    {
+        var contributions = await _context.Contributions
+            .Include(c => c.Contributor)
+            .ToListAsync();
+        return contributions;
     }
 
     /*public List<AppUser> GetAllUsers()
@@ -23,13 +42,24 @@ public class EntryRepository : IEntryRepository
         return _context.AppUsers.ToList();
     }*/
 
-    public async Task<Article?> GetEntryByIdAsync(int id)
+    public async Task<Article?> GetArticleByIdAsync(int id)
     {
-        var entry = await _context.Entries.Include(
+        var article = await _context.Articles.Include(
             e => e.Author).Include(
             e => e.Category)
             .SingleOrDefaultAsync(e => e.ArticleId == id);
-        return entry;
+        return article;
+    }
+
+    public async Task<Conversation?> GetConversationByIdAsync(int id)
+    {
+        var conversation = await _context.Conversations
+            .Include(c => c.Category)
+            .Include(c => c.Responses.OrderBy(r => r.Date))
+            .Include(c => c.Author)
+            .Include(c => c.Article)
+            .SingleOrDefaultAsync(c => c.ConversationId == id);
+        return conversation;
     }
 
     public async Task<Contribution> GetContributionByIdAsync(int id)
@@ -47,9 +77,9 @@ public class EntryRepository : IEntryRepository
         return category;
     }*/
  
-    public async Task<int> StoreEntryAsync(Article model)
+    public async Task<int> StoreArticleAsync(Article model)
     {
-        _context.Entries.Add(model);
+        _context.Articles.Add(model);
         return await _context.SaveChangesAsync();
     }
 
@@ -60,9 +90,22 @@ public class EntryRepository : IEntryRepository
         return await _context.SaveChangesAsync();
     }
 
-    public async Task<int> UpdateEntryAsync(Article model)
+    public async Task<int> StoreConversationAsync(Conversation model)
     {
-        _context.Entries.Update(model);
+        model.StartDate = DateTime.Now;
+        _context.Conversations.Add(model);
+        return await _context.SaveChangesAsync();
+    }
+
+    public async Task<int> UpdateArticleAsync(Article model)
+    {
+        _context.Articles.Update(model);
+        return await _context.SaveChangesAsync();
+    }
+
+    public async Task<int> UpdateConversationAsync(Conversation model)
+    {
+        _context.Conversations.Update(model);
         return await _context.SaveChangesAsync();
     }
 

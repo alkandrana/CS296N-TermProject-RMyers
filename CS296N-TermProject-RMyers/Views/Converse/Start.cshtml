@@ -1,0 +1,74 @@
+@model Conversation
+
+@{
+    ViewBag.Title = "Start a Conversation";
+}
+
+<h2 class="pb-5">Start a Conversation</h2>
+<p class="fst-italic text-success pb-5">
+    Choose a category and title for your topic of conversation,
+    then enter a message to start the conversation. Optionally, 
+    you can also choose an article to reference. 
+</p>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form method="post" asp-action="Start">
+    <div class="row p-2">
+        <label asp-for="CategoryId" class="col-form-label col-md-3 mb-3">Category</label>
+        <div class="col-md-3">
+            <select asp-for="CategoryId" class="form-select">
+                <option value="">select a category</option>
+                @foreach (Category c in ViewBag.Categories)
+                {
+                    <option value="@c.CategoryId">@c.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col">
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row p-2">
+        <label asp-for="Title" class="col-form-label col-md-3 mb-3">Title</label>
+        <div class="col-md-4">
+            <input asp-for="Title" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row p-2">
+        <label asp-for="Content" class="col-form-label col-md-3 mb-3">Enter your message here</label>
+        <div class="col-md-8">
+            <textarea asp-for="Content" class="form-control"></textarea>
+        </div>
+        <div class="col">
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row p-2">
+        <label asp-for="ArticleId" class="col-form-label col-md-3 mb-3">Article</label>
+        <div class="col-md-4">
+            <select asp-for="ArticleId" class="form-select">
+                <option value="">(optional) select an article</option>
+                @foreach (Article a in ViewBag.Articles)
+                {
+                    <option value="@a.ArticleId">@a.Title</option>
+                }
+            </select>
+        </div>
+        <div class="col">
+            <span asp-validation-for="ArticleId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-md-2 offset-md-8">
+            <button type="submit" class="form-control btn btn-success">Submit</button>
+        </div>
+        <div class="col-md-2">
+            <a asp-controller="Converse" asp-action="Index" class="btn btn-warning">Cancel</a>
+        </div>
+    </div>
+</form>

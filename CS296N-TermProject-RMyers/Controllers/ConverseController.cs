@@ -1,5 +1,6 @@
 using CS296N_TermProject_RMyers.Data.Interfaces;
 using CS296N_TermProject_RMyers.Models;
+using CS296N_TermProject_RMyers.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +20,10 @@ public class ConverseController : Controller
     }
     
     // GET
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var model = await _repo.GetAllConversationsAsync();
+        return View(model);
     }
 
     public IActionResult Contribute()
@@ -43,6 +45,69 @@ public class ConverseController : Controller
         }
         
         ModelState.AddModelError("", "There was a problem saving the contribution.");
+        return View(model);
+    }
+
+    public async Task<IActionResult> Start()
+    {
+        ViewBag.Articles = await _repo.GetAllArticlesAsync();
+        ViewBag.Categories = await _repo.GetAllCategoriesAsync();
+        return View();
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Start(Conversation model)
+    {
+        model.Author = await _userManager.GetUserAsync(User);
+        if (ModelState.IsValid)
+        {
+            if (await _repo.StoreConversationAsync(model) > 0)
+            {
+                var conversations = await _repo.GetAllConversationsAsync();
+                return RedirectToAction("Index", conversations);
+            }
+            
+            ModelState.AddModelError("", "There was a problem saving the conversation. Please try again.");
+        }
+        else
+        {
+            ModelState.AddModelError("", "There were data entry errors. Please check the form.");
+        }
+        ViewBag.Articles = await _repo.GetAllArticlesAsync();
+        ViewBag.Categories = await _repo.GetAllCategoriesAsync();
+        return View(model);
+    }
+
+    public async Task<IActionResult> Converse(int id)
+    {
+        Conversation? model = await _repo.GetConversationByIdAsync(id);
+        return View(model);
+    }
+
+    public async Task<IActionResult> Reply(int id)
+    {
+        var model = new ResponseVM
+        {
+            ConversationId = id
+        };
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Reply(ResponseVM model)
+    {
+        if (ModelState.IsValid)
+        {
+            Response reply = new Response { Content = model.Content };
+            reply.Author = await _userManager.GetUserAsync(User);
+            reply.Date = DateTime.Now;
+            
+            var conversation = await _repo.GetConversationByIdAsync(model.ConversationId);
+            conversation.Responses.Add(reply);
+            await _repo.UpdateConversationAsync(conversation);
+            return RedirectToAction("Index");
+        }
+        ModelState.AddModelError("", "There were data entry erros. Please check the form.");
         return View(model);
     }
 }

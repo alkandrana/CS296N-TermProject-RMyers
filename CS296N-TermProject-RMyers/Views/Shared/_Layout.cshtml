@@ -29,8 +29,11 @@
                             <li><a class="dropdown-item text-light" asp-action="Browse" asp-controller="Library">Browse</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" asp-controller="Converse" asp-action="Index">Tea Room</a>
+                    <li class="dropdown">
+                        <a class="btn btn-dark dropdown-toggle" asp-controller="Converse" asp-action="Index" data-bs-toggle="dropdown">Tea Room</a>
+                        <ul class="dropdown-menu bg-dark text-light">
+                            <li><a class="dropdown-item text-light" asp-action="Contribute" asp-controller="Converse">Contribute</a></li>
+                        </ul>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -50,6 +53,12 @@
                                     <li>
                                         <a class="dropdown-item text-light" asp-action="Index" asp-controller="Admin"><span class="fas fa-cog"></span>&nbsp;Admin</a>
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item text-light" asp-action="Select" asp-controller="Admin">Article Selection</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-light" asp-action="Manage" asp-controller="Admin">Contribution Management</a>
+                                    </li>
                                 }
                             }
                             else
@@ -66,7 +75,7 @@
     </nav>
 </header>
 <div class="container text-light element-center">
-    <main role="main" class="pb-3">
+    <main role="main" class="pb-3 min-vh-100">
         @RenderBody()
     </main>
 </div>

@@ -7,7 +7,7 @@ public class SeedData
 {
     public static void Seed(AppDbContext ctx, IServiceProvider provider)
     {
-        if (!ctx.Entries.Any())
+        if (!ctx.Articles.Any())
         {
             Category catH = new Category { CategoryId = "H", Name = "History" };
             Category catM = new Category { CategoryId = "M", Name = "Magic" };
@@ -55,7 +55,7 @@ public class SeedData
                 Category = catM,
                 CategoryId = "M"
             };
-            ctx.Entries.Add(magic);
+            ctx.Articles.Add(magic);
             ctx.SaveChanges();
 
             Article ustores = new Article
@@ -67,7 +67,7 @@ public class SeedData
                 Category = catL,
                 CategoryId = "L"
             };
-            ctx.Entries.Add(ustores);
+            ctx.Articles.Add(ustores);
             ctx.SaveChanges();
 
             Article dynast1 = new Article
@@ -80,7 +80,7 @@ public class SeedData
                 CategoryId = "B"
             };
             
-            ctx.Entries.Add(dynast1);
+            ctx.Articles.Add(dynast1);
             ctx.SaveChanges();
 
             Article dynast2 = new Article
@@ -94,7 +94,7 @@ public class SeedData
                 CategoryId = "B"
             };
 
-            ctx.Entries.Add(dynast2);
+            ctx.Articles.Add(dynast2);
             ctx.SaveChanges();
         }
     }

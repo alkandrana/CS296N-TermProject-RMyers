@@ -3,6 +3,7 @@ using System;
 using CS296N_TermProject_RMyers.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CS296N_TermProject_RMyers.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250306221029_ConversationRestructure")]
+    partial class ConversationRestructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,6 +110,7 @@ namespace CS296N_TermProject_RMyers.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AuthorId")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("CategoryId")
@@ -407,7 +410,9 @@ namespace CS296N_TermProject_RMyers.Migrations
 
                     b.HasOne("CS296N_TermProject_RMyers.Models.AppUser", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CS296N_TermProject_RMyers.Models.Category", "Category")
                         .WithMany()

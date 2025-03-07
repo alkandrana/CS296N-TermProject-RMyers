@@ -114,7 +114,7 @@ public class AdminController : Controller
     public async Task<IActionResult> Edit(int id)
     {
         List<Category> categories = await _repo.GetAllCategoriesAsync();
-        Article? model = await _repo.GetEntryByIdAsync(id);
+        Article? model = await _repo.GetArticleByIdAsync(id);
         ViewBag.Categories = categories;
         return View(model);
     }
@@ -122,7 +122,7 @@ public class AdminController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(Article model)
     {
-        if (await _repo.UpdateEntryAsync(model) > 0)
+        if (await _repo.UpdateArticleAsync(model) > 0)
         {
             return RedirectToAction("Index");
         }
@@ -130,6 +130,17 @@ public class AdminController : Controller
         return View(model);
     }
 
+    public async Task<IActionResult> Select()
+    {
+        List<Article> model = await _repo.GetAllArticlesAsync();
+        return View(model);
+    }
+
+    public async Task<IActionResult> Manage()
+    {
+        List<Contribution> model = await _repo.GetAllContributionsAsync();
+        return View(model);
+    }
     public async Task<IActionResult> Vet(int id)
     {
         var contribution = await _repo.GetContributionByIdAsync(id);

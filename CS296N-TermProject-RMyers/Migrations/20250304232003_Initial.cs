@@ -238,7 +238,7 @@ namespace CS296N_TermProject_RMyers.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Entries",
+                name: "Articles",
                 columns: table => new
                 {
                     ArticleId = table.Column<int>(type: "int", nullable: false)
@@ -314,12 +314,12 @@ namespace CS296N_TermProject_RMyers.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Entries_AuthorId",
-                table: "Entries",
+                table: "Articles",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Entries_CategoryId",
-                table: "Entries",
+                table: "Articles",
                 column: "CategoryId");
         }
 
@@ -344,7 +344,7 @@ namespace CS296N_TermProject_RMyers.Migrations
                 name: "Contributions");
 
             migrationBuilder.DropTable(
-                name: "Entries");
+                name: "Articles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

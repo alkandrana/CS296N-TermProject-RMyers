@@ -1,0 +1,25 @@
+@model ResponseVM
+
+@{
+    ViewBag.Title = "Reply";
+}
+
+<h2>Reply</h2>
+<form method="post" class="container">
+    <input type="hidden" asp-for="ConversationId"/>
+    <div class="row p-2">
+        <label asp-for="Content" class="col-form-label col-md-2 mb-3">Enter your reply here</label>
+        <div class="col-md-8">
+            <textarea asp-for="Content" class="form-control bg-info-subtle"></textarea>
+        </div>
+        <div class="col">
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-md-2 offset-md-8">
+            <button type="submit" class="form-control btn btn-outline-success">Reply</button>
+            <a asp-controller="Converse" asp-action="Index" class="btn btn-danger">Cancel</a>
+        </div>
+    </div>
+</form>

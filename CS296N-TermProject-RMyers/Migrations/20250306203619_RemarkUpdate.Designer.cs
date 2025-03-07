@@ -3,6 +3,7 @@ using System;
 using CS296N_TermProject_RMyers.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CS296N_TermProject_RMyers.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250306203619_RemarkUpdate")]
+    partial class RemarkUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,35 +106,7 @@ namespace CS296N_TermProject_RMyers.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("ArticleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AuthorId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("varchar(2)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("ConversationId");
-
-                    b.HasIndex("ArticleId");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Conversations");
                 });
@@ -163,6 +137,51 @@ namespace CS296N_TermProject_RMyers.Migrations
                     b.HasIndex("ConversationId");
 
                     b.ToTable("Response");
+                });
+
+            modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Starter", b =>
+                {
+                    b.Property<int>("StarterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("varchar(2)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ConversationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("StarterId");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ConversationId")
+                        .IsUnique();
+
+                    b.ToTable("Starter");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -399,7 +418,24 @@ namespace CS296N_TermProject_RMyers.Migrations
                     b.Navigation("Contributor");
                 });
 
-            modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Conversation", b =>
+            modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Response", b =>
+                {
+                    b.HasOne("CS296N_TermProject_RMyers.Models.AppUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("CS296N_TermProject_RMyers.Models.Conversation", "Conversation")
+                        .WithMany("Responses")
+                        .HasForeignKey("ConversationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Conversation");
+                });
+
+            modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Starter", b =>
                 {
                     b.HasOne("CS296N_TermProject_RMyers.Models.Article", "Article")
                         .WithMany()
@@ -415,26 +451,17 @@ namespace CS296N_TermProject_RMyers.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CS296N_TermProject_RMyers.Models.Conversation", "Conversation")
+                        .WithOne("Starter")
+                        .HasForeignKey("CS296N_TermProject_RMyers.Models.Starter", "ConversationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Article");
 
                     b.Navigation("Author");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Response", b =>
-                {
-                    b.HasOne("CS296N_TermProject_RMyers.Models.AppUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
-
-                    b.HasOne("CS296N_TermProject_RMyers.Models.Conversation", "Conversation")
-                        .WithMany("Responses")
-                        .HasForeignKey("ConversationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
 
                     b.Navigation("Conversation");
                 });
@@ -498,6 +525,9 @@ namespace CS296N_TermProject_RMyers.Migrations
             modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Conversation", b =>
                 {
                     b.Navigation("Responses");
+
+                    b.Navigation("Starter")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

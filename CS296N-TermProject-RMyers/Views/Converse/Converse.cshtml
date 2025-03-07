@@ -1,0 +1,51 @@
+@model Conversation
+
+@{
+    ViewBag.Title = "Tea Room";
+}
+
+<h2>Tea Room&#9;<span class="fa-solid fa-mug-hot"></span></h2>
+<h4 class="element-center text-center pb-5">Title:&nbsp;@Model.FormatTitle()</h4>
+<div class="row bg-gradient bg-dark pt-3" id="topic">
+    <p class="col-3 text-center">Topic:&nbsp;@Model.Category.Name</p>
+    <p class="col-3 text-center">
+        Article Referenced: @if (Model.Article == null)
+        {
+        <span>None</span>
+        }
+        else
+        {
+        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model.ArticleId">@Model.Article.Title</a>
+        }
+    </p>
+    <p class="col-3">Date Opened: @Model.StartDate.ToShortDateString()</p>
+    <p class="col-3">Opened by: @Model.Author.UserName</p>    
+</div>
+
+<p class="p-5 fs-5">@Model.Content</p>
+@if(Model.Responses.Count > 0)
+{
+    @foreach (Response r in Model.Responses)
+    {
+        if (r.ResponseId % 2 == 1)
+        {
+            <div class="p-5 offset-8">
+                <p class="fs-5">@r.Content</p>
+                <p>@r.Author &nbsp; @r.Date.ToShortDateString()</p>    
+            </div>    
+        }
+        else
+        {
+            <div class="p-5">
+                <p class="fs-5">@r.Content</p>
+                <p>@r.Author&nbsp;@r.Date.ToShortDateString()</p>
+            </div>
+        }
+    }
+}
+else
+{
+    <p class="fs-3">There are no responses yet.</p>
+}
+
+<a asp-action="Reply" asp-controller="Converse" asp-route-id="@Model.ConversationId" class="btn btn-primary offset-10">Reply</a>
