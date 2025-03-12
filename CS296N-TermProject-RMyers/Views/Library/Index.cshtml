@@ -14,28 +14,17 @@
                         <button type="submit" class="col-md-2"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </form>
-            <div class="mt-5">
-                <h2 class="text-center">Featured Article:</h2>
-                @if (Model.Content != "")
-                {
-                    string[] formatted = Model.Content.Split("\n");
-                    <h3 class="text-center pb-3">@Model.Title</h3>
-                    
-                    
-                    foreach (string par in formatted)
-                    {
-                        if (par.StartsWith("**"))
-                        {
-                            <h5 class="p-3">@par.Substring(2, par.Length - 4)</h5>
-                        }
-                        else if (par.Length < 100)
-                        {
-                            <h4 class="p3">@par</h4>
-                        }
-                        else
-                        {
-                            <p>@par</p>
-                        }
-                    }
-                }
-            </div>
+<div class="mt-5">
+    <h2 class="text-center">Featured Articles:</h2>
+    <div class="img-links">
+        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model.ArticleId" class="m-4"><img src="pics/k-mitch-hodge-castle-unslpash.jpg" alt="castle in a green woodsy clearing"/></a>
+        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model.ArticleId" class="m-3"><img src="pics/Bruno-crystal-ball-pixabay.jpg" alt="purple crystal ball"/></a>
+        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model.ArticleId" class="m-5"><img src="pics/jim-cooper-fire-dragon-pixabay.jpg" alt="fiery dragon perched on top of a hill"/></a>    
+    </div>
+    
+</div>
+
+<p>Photo Credit: Photo by <a href="https://unsplash.com/@@kmitchhodge?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">K. Mitch Hodge</a> on <a href="https://unsplash.com/photos/grey-concrete-building-surrounded-by-trees-pzFtrkLpjdM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+</p>
+<p>Image by <a href="https://pixabay.com/users/bru-no-1161770/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4043805">Bruno</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4043805">Pixabay</a></p>
+<p>Image by <a href="https://pixabay.com/users/jcoope12-17392968/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8747925">Jim Cooper</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8747925">Pixabay</a></p>

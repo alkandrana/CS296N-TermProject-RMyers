@@ -29,6 +29,15 @@ details:active {
   border: 3px inset rgb(94, 2, 76);
 }
 
+img {
+  width: 250px;
+}
+
+.img-links {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .element-center {
   max-width: 75%;
   margin-left: auto;
