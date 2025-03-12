@@ -4,18 +4,27 @@
 }
 
 <h1 class="display-4">Contribution Form</h1>
+
+
+
 <form method="post" class="container">
-    <span>@ViewBag.ErrorMessage</span>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row p-2">
         <label asp-for="Title" class="col-form-label col-md-2 mb-3">Title</label>
         <div class="col-md-8">
             <input asp-for="Title" class="form-control bg-dark-subtle">
+        </div>
+        <div class="col">
+            <span asp-validation-for="Title" class="text-danger"></span>
         </div>
     </div>
     <div class="row p-2">
         <label asp-for="Content" class="col-form-label col-md-2 mb-3">Content</label>
         <div class="col-md-8">
             <textarea asp-for="Content" class="form-control bg-dark-subtle" rows="15"></textarea>
+        </div>
+        <div class="col">
+            <span asp-validation-for="Content" class="text-danger"></span>
         </div>
     </div>
     <div class="row p-2 offset-7">

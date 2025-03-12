@@ -71,6 +71,16 @@ public class EntryRepository : IEntryRepository
         return contribution;
     }
 
+    public async Task<int> CountArticlesAsync()
+    {
+        return await _context.Articles.CountAsync();
+    }
+
+    public async Task<List<int>> GetArticleIds()
+    {
+        return await _context.Articles.Select(a => a.ArticleId).ToListAsync();
+    }
+    
     /*public Category? GetCategoryById(string id)
     {
         var category = _context.Categories.Find(id);
@@ -112,8 +122,8 @@ public class EntryRepository : IEntryRepository
     public async Task<List<Category>> GetAllCategoriesAsync()
     {
         List<Category> categories = await _context.Categories.Include(   
-            c => c.Entries).OrderByDescending( 
-            c => c.Entries.Count).ToListAsync(); 
+            c => c.Articles).OrderByDescending( 
+            c => c.Articles.Count).ToListAsync(); 
         
         return categories;
     }

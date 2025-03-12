@@ -13,9 +13,9 @@ namespace CS296N_TermProject_RMyers.Models
         public override string Content { get; set; } = "";
 
         public AppUser? Author { get; set; }
-        
+
         [StringLength(2), Required(ErrorMessage = "Please assign a category for organization.")]
-        public string CategoryId { get; set; }
+        public string CategoryId { get; set; } = "G";
 
         public Category? Category { get; set; }
 

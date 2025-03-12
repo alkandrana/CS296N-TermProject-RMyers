@@ -18,7 +18,7 @@
             {
                 <details class="col-4 m-5">
                     <summary class="p-1" style="font-size: x-large; font-weight: bolder">@c.Name</summary>
-                    @foreach (Article e in c.Entries)
+                    @foreach (Article e in c.Articles)
                     {
                         <p>
                             <a asp-action="SearchById" asp-controller="Library" asp-route-id="@e.ArticleId">@e.Title</a>

@@ -10,8 +10,9 @@
     then enter a message to start the conversation. Optionally, 
     you can also choose an article to reference. 
 </p>
-<div asp-validation-summary="All" class="text-danger"></div>
+
 <form method="post" asp-action="Start">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row p-2">
         <label asp-for="CategoryId" class="col-form-label col-md-3 mb-3">Category</label>
         <div class="col-md-3">
@@ -31,7 +32,7 @@
     <div class="row p-2">
         <label asp-for="Title" class="col-form-label col-md-3 mb-3">Title</label>
         <div class="col-md-4">
-            <input asp-for="Title" class="form-control" />
+            <input asp-for="Title" class="form-control"/>
         </div>
         <div class="col">
             <span asp-validation-for="Title" class="text-danger"></span>

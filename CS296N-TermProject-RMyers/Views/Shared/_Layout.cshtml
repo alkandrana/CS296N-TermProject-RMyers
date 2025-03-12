@@ -83,6 +83,14 @@
 <footer class="border-top footer text-muted">
     <div class="container p-3">
         &copy; 2025 - The Library of Vermundi - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        @if (ViewData["Title"].ToString() == "Library Catalog")
+        {
+            <div>
+                Photo Credit, from left to right: &nbsp;|&nbsp;Photo by <a href="https://unsplash.com/@@kmitchhodge?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">K. Mitch Hodge</a> on <a href="https://unsplash.com/photos/grey-concrete-building-surrounded-by-trees-pzFtrkLpjdM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+                &nbsp;|&nbsp;Image by <a href="https://pixabay.com/users/bru-no-1161770/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4043805">Bruno</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4043805">Pixabay</a>
+                &nbsp;|&nbsp;Image by <a href="https://pixabay.com/users/jcoope12-17392968/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8747925">Jim Cooper</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8747925">Pixabay</a>
+            </div>
+        }
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

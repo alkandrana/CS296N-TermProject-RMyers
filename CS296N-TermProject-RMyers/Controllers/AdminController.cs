@@ -4,6 +4,7 @@ using CS296N_TermProject_RMyers.Models;
 using CS296N_TermProject_RMyers.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CS296N_TermProject_RMyers.Controllers;
 
@@ -122,10 +123,15 @@ public class AdminController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(Article model)
     {
-        if (await _repo.UpdateArticleAsync(model) > 0)
+        if (ModelState.IsValid)
         {
-            return RedirectToAction("Index");
+            if (await _repo.UpdateArticleAsync(model) > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "There was a problem updating the article.");
         }
+        ModelState.AddModelError("", "There were data entry errors. Please check the form.");
         ViewBag.Categories = await _repo.GetAllCategoriesAsync();
         return View(model);
     }

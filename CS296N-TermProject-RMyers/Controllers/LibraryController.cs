@@ -20,15 +20,24 @@ public class LibraryController : Controller
     
     public async Task<IActionResult> Index()
     {
-        // display a featured article on the home page
+        // link to randomly-selected articles on the search page
         Random gen = new Random();
-        List<Article> entries = await _repo.GetAllArticlesAsync();
-        // set variables random selection
-        int max = entries.Count;
-        int id = gen.Next(1, max);
-        // send random selection to the view
-        Article model = entries[id];
-        return View(model);
+        List<int> ids = await _repo.GetArticleIds();
+        int[] selectedIds = new int[3];
+        // create a list of randomly selected article ids
+        int max = ids.Count;
+        int index = gen.Next(1, max);
+        for (int i = 0; i < 3; i++)
+        {
+            int id = ids[index];
+            while (selectedIds.Contains(id))
+            {
+                id = gen.Next(1, max);
+            }
+            selectedIds[i] = id;
+        }
+        // send random selections to the view
+        return View(selectedIds);
     }
 
     public async Task<IActionResult> Browse()

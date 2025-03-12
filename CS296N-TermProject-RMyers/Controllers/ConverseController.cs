@@ -34,17 +34,19 @@ public class ConverseController : Controller
     [HttpPost]
     public async Task<IActionResult> Contribute(Contribution model)
     {
-        if (model.Contributor == null)
+        if (ModelState.IsValid)
         {
-            model.Contributor = await _userManager.GetUserAsync(User);
+            if (model.Contributor == null)
+            {
+                model.Contributor = await _userManager.GetUserAsync(User);
+            }
+            if (await _repo.StoreContributionAsync(model) > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "There was a problem saving the contribution.");
         }
-
-        if (await _repo.StoreContributionAsync(model) > 0)
-        {
-            return RedirectToAction("Index");
-        }
-        
-        ModelState.AddModelError("", "There was a problem saving the contribution.");
+        ModelState.AddModelError("", "There were data entry errors. Please check the form.");
         return View(model);
     }
 

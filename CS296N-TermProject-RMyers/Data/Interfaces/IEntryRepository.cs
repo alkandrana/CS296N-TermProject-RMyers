@@ -14,8 +14,11 @@ public interface IEntryRepository
     public Task<Conversation?> GetConversationByIdAsync(int id);
     
     public Task<Contribution?> GetContributionByIdAsync(int id);
+    
+    public Task<int> CountArticlesAsync();
     // public Category? GetCategoryById(string id);
 
+    public Task<List<int>> GetArticleIds();
     public Task<int> StoreArticleAsync(Article model);
     
     public Task<int> StoreContributionAsync(Contribution model);

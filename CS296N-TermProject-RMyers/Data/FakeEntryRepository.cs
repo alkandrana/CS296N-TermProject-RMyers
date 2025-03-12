@@ -4,7 +4,7 @@ namespace CS296N_TermProject_RMyers.Data;
 
 public class FakeEntryRepository : IEntryRepository
 {
-    private List<Article> _entries = new List<Article>();
+    private List<Article> _articles = new List<Article>();
     private List<Contribution> _contributions = new List<Contribution>();
     private List<AppUser> _users = new List<AppUser>();
     private List<Category> _categories = new List<Category>();
@@ -22,7 +22,7 @@ public class FakeEntryRepository : IEntryRepository
 
     public async Task<Article?> GetArticleByIdAsync(int id)
     {
-        return _entries.Find(r => r.ArticleId == id);
+        return _articles.Find(r => r.ArticleId == id);
     }
 
     public async Task<Conversation?> GetConversationByIdAsync(int id)
@@ -35,6 +35,22 @@ public class FakeEntryRepository : IEntryRepository
         return _contributions.Find(r => r.ContributionId == id);
     }
 
+    public async Task<int> CountArticlesAsync()
+    {
+        return _articles.Count;
+    }
+
+    public async Task<List<int>> GetArticleIds()
+    {
+        List<int> ids = new List<int>();
+        foreach (Article a in _articles)
+        {
+            ids.Add(a.ArticleId);
+        }
+
+        return ids;
+    }
+
     /*public Category? GetCategoryById(string id)
     {
         return _categories.Find(r => r.CategoryId == id);
@@ -45,8 +61,8 @@ public class FakeEntryRepository : IEntryRepository
         int status = 0;
         if (model != null && model.Author != null)
         {
-            model.ArticleId = _entries.Count + 1;
-            _entries.Add(model);
+            model.ArticleId = _articles.Count + 1;
+            _articles.Add(model);
             status = 1;
         }
 
@@ -58,7 +74,7 @@ public class FakeEntryRepository : IEntryRepository
         int status = 0;
         if (model != null && model.Contributor != null)
         {
-            model.ContributionId = _entries.Count + 1;
+            model.ContributionId = _articles.Count + 1;
             _contributions.Add(model);
             status = 1;
         }
@@ -71,7 +87,7 @@ public class FakeEntryRepository : IEntryRepository
         int status = 0;
         if (model != null)
         {
-            model.ConversationId = _entries.Count + 1;
+            model.ConversationId = _articles.Count + 1;
             _conversations.Add(model);
             status = 1;
         }
@@ -112,7 +128,7 @@ public class FakeEntryRepository : IEntryRepository
     public async Task<List<Category>> GetAllCategoriesAsync()
     {
         List<Category> categories = new List<Category>();
-        foreach (Article e in _entries)
+        foreach (Article e in _articles)
         {
             categories.Add(e.Category);
         }
@@ -122,7 +138,7 @@ public class FakeEntryRepository : IEntryRepository
     /*public List<AppUser> GetAllUsers()
     {
         List<AppUser> users = new List<AppUser>();
-        foreach (Article e in _entries)
+        foreach (Article e in _articles)
         {
             users.Add(e.Contributor);
         }
@@ -131,7 +147,7 @@ public class FakeEntryRepository : IEntryRepository
 
     public async Task<List<Article>> GetAllArticlesAsync()
     {
-        return _entries;
+        return _articles;
     }
     
     

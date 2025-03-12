@@ -7,6 +7,7 @@
 
 <h2>Editor</h2>
 <form method="post" asp-action="Edit" class="container">
+    <div asp-validation-summary="ModelOnly"></div>
     <div class="row p-2">
         <label asp-for="CategoryId" class="col-form-label col-md-2 mb-3">Topic</label>
         <div class="col-md-8">
@@ -18,17 +19,26 @@
                 }
             </select>
         </div>
+        <div class="col">
+            <span asp-validation-for="CategoryId"></span>
+        </div>
     </div>
     <div class="row p-2">
         <label asp-for="Title" class="col-form-label col-md-2 mb-3">Title</label>
         <div class="col-md-8">
             <input asp-for="Title" class="form-control bg-dark-subtle"/>
         </div>
+        <div class="col">
+            <span asp-validation-for="Title"></span>
+        </div>
     </div>
     <div class="row p-2">
         <label asp-for="Content" class="col-form-label col-md-2 mb-3">Text</label>
         <div class="col-md-8">
             <textarea asp-for="Content" class="form-control bg-info-subtle" rows="15"></textarea>
+        </div>
+        <div class="col">
+            <span asp-validation-for="Content"></span>
         </div>
     </div>
     <div class="row p-2">
@@ -39,6 +49,9 @@
                 <option value="true">True</option>
                 <option value="false">False</option>
             </select>
+        </div>
+        <div class="col">
+            <span asp-validation-for="Protected"></span>
         </div>
     </div>
     <input type="hidden" asp-for="ArticleId">

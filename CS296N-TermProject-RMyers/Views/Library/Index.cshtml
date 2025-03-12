@@ -1,30 +1,27 @@
-@model Article
+@model int[]
 @{
     ViewData["Title"] = "Library Catalog";
 }
-            <h1 class="text-center">Welcome to the Library Catalog</h1>
-            <p class="pt-5 lh-lg fst-italic fs-4">
-                Follow the links on the left to contribute an entry to the Library's vaults; 
-                use the search function to search for a specific article; 
-                or check out our featured article below.
-            </p>
-                <form asp-action="Search" asp-controller="Library" class="container">
-                    <div class="row">
-                        <input type="text" placeholder="Enter a title, keyword, topic, etc..." name="key" class="col-md-10">
-                        <button type="submit" class="col-md-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
-                </form>
+
+<h1 class="text-center">Welcome to the Library Catalog</h1>
+<form asp-action="Search" asp-controller="Library" class="container">
+    <div class="row">
+        <input type="text" placeholder="Enter a title, keyword, topic, etc..." name="key" class="col-md-10">
+        <button type="submit" class="col-md-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+</form>
+<p class="pt-5 lh-lg fst-italic fs-4">
+    From here you can use the search function above to search for a specific article or keyword, 
+    or check out our featured articles below.
+</p>
+                
 <div class="mt-5">
     <h2 class="text-center">Featured Articles:</h2>
     <div class="img-links">
-        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model.ArticleId" class="m-4"><img src="pics/k-mitch-hodge-castle-unslpash.jpg" alt="castle in a green woodsy clearing"/></a>
-        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model.ArticleId" class="m-3"><img src="pics/Bruno-crystal-ball-pixabay.jpg" alt="purple crystal ball"/></a>
-        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model.ArticleId" class="m-5"><img src="pics/jim-cooper-fire-dragon-pixabay.jpg" alt="fiery dragon perched on top of a hill"/></a>    
+        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[0]" class="m-4"><img src="pics/k-mitch-hodge-castle-unslpash.jpg" alt="castle in a green woodsy clearing"/></a>
+        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[1]" class="m-3"><img src="pics/Bruno-crystal-ball-pixabay.jpg" alt="purple crystal ball"/></a>
+        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[2]" class="m-5"><img src="pics/jim-cooper-fire-dragon-pixabay.jpg" alt="fiery dragon perched on top of a hill"/></a>    
     </div>
     
 </div>
 
-<p>Photo Credit: Photo by <a href="https://unsplash.com/@@kmitchhodge?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">K. Mitch Hodge</a> on <a href="https://unsplash.com/photos/grey-concrete-building-surrounded-by-trees-pzFtrkLpjdM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-</p>
-<p>Image by <a href="https://pixabay.com/users/bru-no-1161770/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4043805">Bruno</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4043805">Pixabay</a></p>
-<p>Image by <a href="https://pixabay.com/users/jcoope12-17392968/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8747925">Jim Cooper</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8747925">Pixabay</a></p>

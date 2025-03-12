@@ -12,6 +12,7 @@ public class Conversation
     [Required]
     public string Content { get; set; } = "";
     
+    [StringLength(2)]
     public string CategoryId { get; set; } = "G";
     public Category? Category { get; set; }
     

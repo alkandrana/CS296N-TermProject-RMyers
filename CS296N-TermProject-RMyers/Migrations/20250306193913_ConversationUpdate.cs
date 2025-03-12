@@ -14,11 +14,11 @@ namespace CS296N_TermProject_RMyers.Migrations
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Entries_AspNetUsers_AuthorId",
-                table: "Entries");
+                table: "Articles");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Entries_Categories_CategoryId",
-                table: "Entries");
+                table: "Articles");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Starter_Categories_CategoryId",
@@ -30,14 +30,14 @@ namespace CS296N_TermProject_RMyers.Migrations
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_Entries",
-                table: "Entries");
+                table: "Articles");
 
             migrationBuilder.DropColumn(
                 name: "ArticleId",
                 table: "Conversations");
 
             migrationBuilder.RenameTable(
-                name: "Entries",
+                name: "Articles",
                 newName: "Articles");
 
             migrationBuilder.RenameIndex(
@@ -149,16 +149,16 @@ namespace CS296N_TermProject_RMyers.Migrations
 
             migrationBuilder.RenameTable(
                 name: "Articles",
-                newName: "Entries");
+                newName: "Articles");
 
             migrationBuilder.RenameIndex(
                 name: "IX_Articles_CategoryId",
-                table: "Entries",
+                table: "Articles",
                 newName: "IX_Entries_CategoryId");
 
             migrationBuilder.RenameIndex(
                 name: "IX_Articles_AuthorId",
-                table: "Entries",
+                table: "Articles",
                 newName: "IX_Entries_AuthorId");
 
             migrationBuilder.AlterColumn<string>(
@@ -179,7 +179,7 @@ namespace CS296N_TermProject_RMyers.Migrations
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_Entries",
-                table: "Entries",
+                table: "Articles",
                 column: "ArticleId");
 
             migrationBuilder.CreateIndex(
@@ -191,19 +191,19 @@ namespace CS296N_TermProject_RMyers.Migrations
                 name: "FK_Conversations_Entries_ArticleId",
                 table: "Conversations",
                 column: "ArticleId",
-                principalTable: "Entries",
+                principalTable: "Articles",
                 principalColumn: "ArticleId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Entries_AspNetUsers_AuthorId",
-                table: "Entries",
+                table: "Articles",
                 column: "AuthorId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Entries_Categories_CategoryId",
-                table: "Entries",
+                table: "Articles",
                 column: "CategoryId",
                 principalTable: "Categories",
                 principalColumn: "CategoryId",
