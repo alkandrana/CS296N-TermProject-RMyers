@@ -51,7 +51,7 @@ namespace CS296N_TermProject_RMyers.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Articles");
+                    b.ToTable("Articles", (string)null);
                 });
 
             modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Category", b =>
@@ -67,7 +67,7 @@ namespace CS296N_TermProject_RMyers.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Contribution", b =>
@@ -95,7 +95,7 @@ namespace CS296N_TermProject_RMyers.Migrations
 
                     b.HasIndex("ContributorId");
 
-                    b.ToTable("Contributions");
+                    b.ToTable("Contributions", (string)null);
                 });
 
             modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Conversation", b =>
@@ -134,7 +134,7 @@ namespace CS296N_TermProject_RMyers.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Conversations");
+                    b.ToTable("Conversations", (string)null);
                 });
 
             modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Response", b =>
@@ -162,7 +162,7 @@ namespace CS296N_TermProject_RMyers.Migrations
 
                     b.HasIndex("ConversationId");
 
-                    b.ToTable("Response");
+                    b.ToTable("Response", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -380,7 +380,7 @@ namespace CS296N_TermProject_RMyers.Migrations
                         .HasForeignKey("AuthorId");
 
                     b.HasOne("CS296N_TermProject_RMyers.Models.Category", "Category")
-                        .WithMany("Articles")
+                        .WithMany("Entries")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -492,7 +492,7 @@ namespace CS296N_TermProject_RMyers.Migrations
 
             modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Category", b =>
                 {
-                    b.Navigation("Articles");
+                    b.Navigation("Entries");
                 });
 
             modelBuilder.Entity("CS296N_TermProject_RMyers.Models.Conversation", b =>
