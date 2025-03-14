@@ -7,7 +7,7 @@
 
 <h2>Editor</h2>
 <form method="post" asp-action="Edit" class="container">
-    <div asp-validation-summary="ModelOnly"></div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row p-2">
         <label asp-for="CategoryId" class="col-form-label col-md-2 mb-3">Topic</label>
         <div class="col-md-8">
@@ -20,7 +20,7 @@
             </select>
         </div>
         <div class="col">
-            <span asp-validation-for="CategoryId"></span>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
     </div>
     <div class="row p-2">
@@ -29,7 +29,7 @@
             <input asp-for="Title" class="form-control bg-dark-subtle"/>
         </div>
         <div class="col">
-            <span asp-validation-for="Title"></span>
+            <span asp-validation-for="Title" class="text-danger"></span>
         </div>
     </div>
     <div class="row p-2">
@@ -38,7 +38,7 @@
             <textarea asp-for="Content" class="form-control bg-info-subtle" rows="15"></textarea>
         </div>
         <div class="col">
-            <span asp-validation-for="Content"></span>
+            <span asp-validation-for="Content" class="text-danger"></span>
         </div>
     </div>
     <div class="row p-2">
@@ -51,7 +51,7 @@
             </select>
         </div>
         <div class="col">
-            <span asp-validation-for="Protected"></span>
+            <span asp-validation-for="Protected" class="text-danger"></span>
         </div>
     </div>
     <input type="hidden" asp-for="ArticleId">
