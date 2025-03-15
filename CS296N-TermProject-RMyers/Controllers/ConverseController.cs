@@ -34,7 +34,7 @@ public class ConverseController : Controller
     [HttpPost]
     public async Task<IActionResult> Contribute(Contribution model)
     {
-        if (ModelState.IsValid)
+        if (model != null && ModelState.IsValid)
         {
             if (model.Contributor == null)
             {
@@ -60,9 +60,13 @@ public class ConverseController : Controller
     [HttpPost]
     public async Task<IActionResult> Start(Conversation model)
     {
-        model.Author = await _userManager.GetUserAsync(User);
-        if (ModelState.IsValid)
+        
+        if (model != null && ModelState.IsValid)
         {
+            if (model.Author == null)
+            {
+                model.Author = await _userManager.GetUserAsync(User);
+            }
             if (await _repo.StoreConversationAsync(model) > 0)
             {
                 var conversations = await _repo.GetAllConversationsAsync();
@@ -98,18 +102,24 @@ public class ConverseController : Controller
     [HttpPost]
     public async Task<IActionResult> Reply(ResponseVM model)
     {
-        if (ModelState.IsValid)
+        if (model != null && ModelState.IsValid)
         {
-            Response reply = new Response { Content = model.Content };
-            reply.Author = await _userManager.GetUserAsync(User);
-            reply.Date = DateTime.Now;
-            
+            if (model.Commenter == null)
+            {
+                model.Commenter = await _userManager.GetUserAsync(User);
+            }
+            Response reply = new Response
+            {
+                Content = model.Content,
+                Date = DateTime.Now,
+                Author = model.Commenter
+            };
             var conversation = await _repo.GetConversationByIdAsync(model.ConversationId);
             conversation.Responses.Add(reply);
             await _repo.UpdateConversationAsync(conversation);
             return RedirectToAction("Index");
         }
-        ModelState.AddModelError("", "There were data entry erros. Please check the form.");
+        ModelState.AddModelError("", "There were data entry errors. Please check the form.");
         return View(model);
     }
 }

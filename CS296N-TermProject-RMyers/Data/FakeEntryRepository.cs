@@ -119,7 +119,7 @@ public class FakeEntryRepository : IEntryRepository
         int status = 0;
         if (model != null)
         {
-            model.ConversationId = _articles.Count + 1;
+            model.ConversationId = _conversations.Count + 1;
             _conversations.Add(model);
             status = 1;
         }
