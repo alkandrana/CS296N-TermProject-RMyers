@@ -162,9 +162,12 @@ public class AdminController : Controller
         }
         else
         {
-            TempData["error"] = "There was a problem retrieving that contribution." +
-                                " Please try again. If the problem persists, " +
-                                "contact the Engineering department.";
+            if (TempData != null)
+            {
+                TempData["error"] = "There was a problem retrieving that contribution." +
+                                    " Please try again. If the problem persists, " +
+                                    "contact the Engineering department.";
+            }
             return RedirectToAction("Manage");
         }
     }

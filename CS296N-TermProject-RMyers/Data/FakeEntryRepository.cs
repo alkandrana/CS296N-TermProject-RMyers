@@ -106,7 +106,7 @@ public class FakeEntryRepository : IEntryRepository
         int status = 0;
         if (model != null && model.Contributor != null)
         {
-            model.ContributionId = _articles.Count + 1;
+            model.ContributionId = _contributions.Count + 1;
             _contributions.Add(model);
             status = 1;
         }
