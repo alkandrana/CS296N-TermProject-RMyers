@@ -152,11 +152,13 @@ public class AdminController : Controller
         var contribution = await _repo.GetContributionByIdAsync(id);
         if (contribution != null)
         {
-            Article model = new Article();
-            model.Title = contribution.Title;
-            model.Content = contribution.Content;
-            model.Author = contribution.Contributor;
-            return View("Edit", model);
+            Article model = new Article
+            {
+                Title = contribution.Title,
+                Content = contribution.Content,
+                Author = contribution.Contributor
+            };
+                return View("Edit", model);
         }
         else
         {

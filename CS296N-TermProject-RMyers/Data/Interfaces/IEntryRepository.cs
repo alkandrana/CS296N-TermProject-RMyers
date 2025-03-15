@@ -8,17 +8,21 @@ public interface IEntryRepository
     public Task<List<Conversation>> GetAllConversationsAsync();
     
     public Task<List<Contribution>> GetAllContributionsAsync();
-    
+
+    public Task<List<int>> GetRandomArticleIdListAsync(int count);
     public Task<Article?> GetArticleByIdAsync(int id);
     
     public Task<Conversation?> GetConversationByIdAsync(int id);
     
     public Task<Contribution?> GetContributionByIdAsync(int id);
+
+    public Task<int> GetRandomArticleIdAsync();
     
     public Task<int> CountArticlesAsync();
-    // public Category? GetCategoryById(string id);
+    
+    public Task<Category?> GetCategoryByIdAsync(string id);
 
-    public Task<List<int>> GetArticleIds();
+    public Task<List<int>> GetArticleIdsAsync();
     public Task<int> StoreArticleAsync(Article model);
     
     public Task<int> StoreContributionAsync(Contribution model);

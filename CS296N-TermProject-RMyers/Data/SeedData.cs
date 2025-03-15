@@ -27,7 +27,7 @@ public class SeedData
             const string role = "Admin";
             if (roleManager.FindByNameAsync("Admin").Result == null)
             {
-                roleManager.CreateAsync(new IdentityRole(role));
+                roleManager.CreateAsync(new IdentityRole(role)).Wait();
             }
             AppUser contributor1 = new AppUser
             {
@@ -49,7 +49,7 @@ public class SeedData
             bool isSuccess = userManager.CreateAsync(contributor1, PASSWORD).Result.Succeeded;
             if (isSuccess)
             {
-                userManager.AddToRoleAsync(contributor1, role);
+                userManager.AddToRoleAsync(contributor1, role).Wait();
             }
             isSuccess = userManager.CreateAsync(contributor2, PASSWORD).Result.Succeeded;
             isSuccess = userManager.CreateAsync(contributor3, PASSWORD).Result.Succeeded;

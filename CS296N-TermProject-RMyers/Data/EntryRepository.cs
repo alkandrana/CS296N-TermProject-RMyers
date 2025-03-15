@@ -37,6 +37,29 @@ public class EntryRepository : IEntryRepository
         return contributions;
     }
 
+    public async Task<List<int>> GetRandomArticleIdListAsync(int count)
+    {
+        List<int> selection = new List<int>();
+        if (count < _context.Articles.Count())
+        {
+            int id = await GetRandomArticleIdAsync();
+            for (int i = 0; i < count; i++)
+            {
+                while (selection.Contains(id))
+                {
+                    id = await GetRandomArticleIdAsync();
+                }
+                selection.Add(id);
+            }
+        }
+        else
+        {
+            selection = await _context.Articles.Select(a => a.ArticleId).ToListAsync();
+        }
+
+        return selection;
+    }
+
     /*public List<AppUser> GetAllUsers()
     {
         return _context.AppUsers.ToList();
@@ -71,21 +94,31 @@ public class EntryRepository : IEntryRepository
         return contribution;
     }
 
+    public async Task<int> GetRandomArticleIdAsync()
+    {
+        Random gen = new Random();
+        int max = _context.Articles.Count();
+        List<int> ids = await _context.Articles.Select(a => a.ArticleId).ToListAsync();
+        int randNum = gen.Next(0, max);
+        int id = ids[randNum];
+        return id;
+    }
+
     public async Task<int> CountArticlesAsync()
     {
         return await _context.Articles.CountAsync();
     }
 
-    public async Task<List<int>> GetArticleIds()
+    public async Task<List<int>> GetArticleIdsAsync()
     {
         return await _context.Articles.Select(a => a.ArticleId).ToListAsync();
     }
     
-    /*public Category? GetCategoryById(string id)
+    public async Task<Category?> GetCategoryByIdAsync(string id)
     {
-        var category = _context.Categories.Find(id);
+        var category = await _context.Categories.FindAsync(id);
         return category;
-    }*/
+    }
  
     public async Task<int> StoreArticleAsync(Article model)
     {
