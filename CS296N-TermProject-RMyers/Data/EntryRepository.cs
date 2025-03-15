@@ -78,7 +78,7 @@ public class EntryRepository : IEntryRepository
     {
         var conversation = await _context.Conversations
             .Include(c => c.Category)
-            .Include(c => c.Responses.OrderBy(r => r.Date))
+            .Include(c => c.Responses.OrderBy(r => r.Date)).ThenInclude(r => r.Author)
             .Include(c => c.Author)
             .Include(c => c.Article)
             .SingleOrDefaultAsync(c => c.ConversationId == id);
@@ -149,6 +149,12 @@ public class EntryRepository : IEntryRepository
     public async Task<int> UpdateConversationAsync(Conversation model)
     {
         _context.Conversations.Update(model);
+        return await _context.SaveChangesAsync();
+    }
+
+    public async Task<int> UpdateContributionAsync(Contribution model)
+    {
+        _context.Contributions.Update(model);
         return await _context.SaveChangesAsync();
     }
 

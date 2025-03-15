@@ -126,7 +126,7 @@ public class SeedData
                 };
 
                 ctx.Articles.Add(dynast2);
-                ctx.SaveChanges();
+                
             }
 
             #endregion
@@ -141,6 +141,7 @@ public class SeedData
                 Date = DateTime.Now,
                 Contributor = filbert
             };
+            ctx.Contributions.Add(dynasty);
 
             #endregion
 
@@ -149,17 +150,22 @@ public class SeedData
             Conversation sociology = new Conversation
             {
                 Title = "Dynastic cycles",
+                CategoryId = "H",
                 Content = "Maybe it's just me, but I've always found this a very queer pattern.",
                 StartDate = DateTime.Now,
-                Author = alkandrana
+                Author = alkandrana,
+                Responses = new List<Response>
+                {
+                    new Response
+                    {
+                        Author = hilda,
+                        Content = "It is a remarkably reliable pattern.",
+                        Date = DateTime.Now
+                    }
+                }
             };
-            Response soc1 = new Response
-            {
-                Author = hilda,
-                Content = "It is a remarkably reliable pattern.",
-                Date = DateTime.Now,
-                Conversation = sociology
-            };
+            ctx.Conversations.Add(sociology);
+            ctx.SaveChanges();
 
             #endregion
         }

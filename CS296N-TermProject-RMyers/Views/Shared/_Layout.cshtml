@@ -32,11 +32,29 @@
                     <li class="dropdown">
                         <a class="btn btn-dark dropdown-toggle" asp-controller="Converse" asp-action="Index" data-bs-toggle="dropdown">Tea Room</a>
                         <ul class="dropdown-menu bg-dark text-light">
+                            <li><a class="dropdown-item text-light" asp-action="Index" asp-controller="Converse">Tea Room</a></li>
                             <li><a class="dropdown-item text-light" asp-action="Contribute" asp-controller="Converse">Contribute</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <li class="dropdown">
+                        <a class="btn btn-dark dropdown-toggle" asp-controller="Admin" asp-action="Index" data-bs-toggle="dropdown"><span class="fas fa-cog"></span>&nbsp;Admin</a>
+                        <ul class="dropdown-menu bg-dark text-light">
+                            <li>
+                                <a class="dropdown-item text-light" asp-action="Index" asp-controller="Admin">User Management</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-light" asp-action="Select" asp-controller="Admin">Article Selection</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-light" asp-action="Manage" asp-controller="Admin">Contribution Management</a>
+                            </li>
+                        </ul>
+                    </li>
+                    }
                     <li class="dropdown">
                         <a class="btn btn-dark dropdown-toggle" asp-action="Login" asp-controller="Account" data-bs-toggle="dropdown">Account</a>
                         <ul class="dropdown-menu bg-dark">
@@ -48,18 +66,6 @@
                                         <input type="submit" value="Log Out" class="dropdown-item text-light"/>
                                     </form>
                                 </li>
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <li>
-                                        <a class="dropdown-item text-light" asp-action="Index" asp-controller="Admin"><span class="fas fa-cog"></span>&nbsp;Admin</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item text-light" asp-action="Select" asp-controller="Admin">Article Selection</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item text-light" asp-action="Manage" asp-controller="Admin">Contribution Management</a>
-                                    </li>
-                                }
                             }
                             else
                             {

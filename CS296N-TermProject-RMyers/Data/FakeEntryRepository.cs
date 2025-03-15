@@ -162,6 +162,17 @@ public class FakeEntryRepository : IEntryRepository
         return status;
     }
 
+    public async Task<int> UpdateContributionAsync(Contribution model)
+    {
+        int status = 0;
+        if (_contributions[model.ContributionId - 1] == model)
+        {
+            _contributions[model.ContributionId - 1] = model;
+            status = 1;
+        }
+        return status;
+    }
+
 
     public async Task<List<Category>> GetAllCategoriesAsync()
     {

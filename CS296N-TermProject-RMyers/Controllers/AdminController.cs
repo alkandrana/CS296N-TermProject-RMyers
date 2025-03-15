@@ -127,6 +127,7 @@ public class AdminController : Controller
         {
             if (await _repo.UpdateArticleAsync(model) > 0)
             {
+                // TODO: change Contribution status to not active
                 return RedirectToAction("Index");
             }
             ModelState.AddModelError("", "There was a problem updating the article.");
@@ -158,7 +159,8 @@ public class AdminController : Controller
                 Content = contribution.Content,
                 Author = contribution.Contributor
             };
-                return View("Edit", model);
+            ViewBag.Categories = await _repo.GetAllCategoriesAsync();
+            return View("Edit", model);
         }
         else
         {

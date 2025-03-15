@@ -34,4 +34,6 @@ public interface IEntryRepository
     public Task<int> UpdateArticleAsync(Article model);
     
     public Task<int> UpdateConversationAsync(Conversation model);
+    
+    public Task<int> UpdateContributionAsync(Contribution model);
 }
