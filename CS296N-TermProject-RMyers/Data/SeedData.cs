@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using CS296N_TermProject_RMyers.Models;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace CS296N_TermProject_RMyers.Data;
 
@@ -9,6 +10,8 @@ public class SeedData
     {
         if (!ctx.Articles.Any())
         {
+            #region categories
+
             Category catH = new Category { CategoryId = "H", Name = "History" };
             Category catM = new Category { CategoryId = "M", Name = "Magic" };
             Category catL = new Category { CategoryId = "L", Name = "Legend" };
@@ -21,38 +24,60 @@ public class SeedData
             ctx.Categories.Add(catI);
             ctx.Categories.Add(catB);
 
+            #endregion
+
+            #region users
+
             var userManager = provider.GetRequiredService<UserManager<AppUser>>();
             var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
-            const string PASSWORD = "Alk*ndr2na";
+            const string password = "Alk*ndr2na";
             const string role = "Admin";
             if (roleManager.FindByNameAsync("Admin").Result == null)
             {
                 roleManager.CreateAsync(new IdentityRole(role)).Wait();
             }
+
             AppUser contributor1 = new AppUser
             {
                 UserName = "vratha",
                 SignUpDate = new DateTime(2013, 07, 26)
             };
-            
+
             AppUser contributor2 = new AppUser
             {
                 UserName = "damian",
                 SignUpDate = new DateTime(2013, 07, 30)
             };
-            
-            AppUser contributor3 = new AppUser
+
+            AppUser alkandrana = new AppUser
             {
                 UserName = "alkandrana",
                 SignUpDate = new DateTime(2013, 12, 25)
             };
-            bool isSuccess = userManager.CreateAsync(contributor1, PASSWORD).Result.Succeeded;
+            AppUser filbert = new AppUser
+            {
+                UserName = "filbert",
+                SignUpDate = new DateTime(2020, 12, 16)
+            };
+            AppUser hilda = new AppUser
+            {
+                UserName = "hilda",
+                SignUpDate = new DateTime(2020, 12, 20)
+            };
+            bool isSuccess = userManager.CreateAsync(contributor1, password).Result.Succeeded;
             if (isSuccess)
             {
                 userManager.AddToRoleAsync(contributor1, role).Wait();
             }
-            isSuccess = userManager.CreateAsync(contributor2, PASSWORD).Result.Succeeded;
-            isSuccess = userManager.CreateAsync(contributor3, PASSWORD).Result.Succeeded;
+
+            isSuccess = userManager.CreateAsync(contributor2, password).Result.Succeeded;
+            isSuccess = userManager.CreateAsync(alkandrana, password).Result.Succeeded;
+            isSuccess = userManager.CreateAsync(filbert, password).Result.Succeeded;
+            isSuccess = userManager.CreateAsync(hilda, password).Result.Succeeded;
+
+            #endregion
+
+            #region articles
 
             if (isSuccess)
             {
@@ -95,7 +120,7 @@ public class SeedData
                     Title = "Valorian the Prescient",
                     Content =
                         "Valorian, known as \"the Prescient,\" reigned over the Empire as the third sovereign of Thoren's line, of the Second Era. His reign was marked by significant technological advancements and a heightened focus on preparing the Empire for potential threats.\nKey Achievements:\n**Introduction of Advanced Technologies:**\nValorian oversaw the implementation of advanced technologies across various sectors of the Empire, leading to significant social and economic transformations. These innovations were the culmination of technological developments initiated during Thoren's reign.\n**Public Awareness Campaigns:**\nBreaking with the policies of previous monarchs, Valorian launched public awareness campaigns about the history and threat of demons. This unprecedented move was aimed at ensuring citizens were informed and prepared for potential future conflicts, but in practice it only served to reinforce the common perception of the Emperor as a bit paranoid and even mentally unstable.\n**Training of Special Forces:**\nValorian established a program to train specialized military units skilled in both combat and the use of new technologies. These elite forces worked directly under Imperial mandate and possessed knowledge inaccessible to the average citizen.\nControversies and Downfall:\nAs his reign progressed, Valorian became increasingly paranoid about the potential return of the demon king. His suspicions extended even to his own sons, leading to persecutions of those he deemed suspect. This behavior ultimately led to his daughter, Morwen, ordering his imprisonment and taking control of the Empire.\nAlthough Valorian was much maligned in his own time, posterity judged him prescient after it became public knowledge that the Empress Morwen was Influenced by the demon king. The mysterious circumstances of his disappearance after imprisonment have led to all kinds of theories arising surrounding his ultimate fate, including the rather far-fetched theory that he never died, but was imprisoned by the demon king and survives to this day as a kind of supernatural captive of the demons.\nValorian's reign marked a pivotal period in the Empire's history, characterized by technological progress and increased vigilance against supernatural threats. However, his legacy is complicated by his descent into paranoia and the mysterious circumstances surrounding the end of his rule.",
-                    Author = contributor3,
+                    Author = alkandrana,
                     Category = catB,
                     CategoryId = "B"
                 };
@@ -103,7 +128,40 @@ public class SeedData
                 ctx.Articles.Add(dynast2);
                 ctx.SaveChanges();
             }
+
+            #endregion
             
+            #region contributions
+
+            Contribution dynasty = new Contribution
+            {
+                Title = "A Brief Dynastic History",
+                Content =
+                    "The Empire of Thasharith follows a cyclical pattern of rule, with each cycle lasting 125 years. Each cycle consists of five distinct periods: the Dragon's Enlightenment (25 years) followed by three Human Reigns (25 years each), and concluding with the Demon King's Ascension (25 years).\n\n### Cycle 1 (Years 1-125)\n\nThe first cycle began with the reign of Vathyri the Dragon, the legendary leader of the warriors who fought in the Demon War, and was marked by unprecedented magical advancement and the establishment of fundamental imperial institutions. The subsequent reigns under Alaric, Callista, and Kaelan saw the development of cultural traditions and defensive measures against emerging demon threats. The cycle concluded with Rhaegar the Suppressor's reign, the first of the Tyrannies.\n\n### Cycle 2 (Years 126-250)\n\nAegon the Rebuilder initiated the second cycle's Enlightenment, focusing on restoration and fortification. The reigns of Thoren, Isolde, and Valorian emphasized technological advancement and preparations for defense against the demons. Morwen's revelation as the Demon King marked the cycle's end, characterized by technological acceleration amid institutional corruption.\n\n### Cycles 3 and 4 (Years 251-500)\n\nLimited historical records exist for Cycles 3 and early 4. The current era falls under Vortigern's Ascension in Cycle 4, preceded by Valerien's reign which witnessed the emergence of the destabilizing Alsacian cult.\n\n### Historical Significance\n\nThis cyclical pattern demonstrates the ongoing struggle between draconic, human, and demonic influences in imperial governance. Each cycle shows evolving strategies in magical development, technological advancement, and demonic resistance, though the pattern of infiltration and corruption persists.",
+                Date = DateTime.Now,
+                Contributor = filbert
+            };
+
+            #endregion
+
+            #region conversations
+
+            Conversation sociology = new Conversation
+            {
+                Title = "Dynastic cycles",
+                Content = "Maybe it's just me, but I've always found this a very queer pattern.",
+                StartDate = DateTime.Now,
+                Author = alkandrana
+            };
+            Response soc1 = new Response
+            {
+                Author = hilda,
+                Content = "It is a remarkably reliable pattern.",
+                Date = DateTime.Now,
+                Conversation = sociology
+            };
+
+            #endregion
         }
     }
 }
