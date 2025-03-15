@@ -29,16 +29,16 @@
     {
         if (r.ResponseId % 2 == 1)
         {
-            <div class="p-5 offset-8">
-                <p class="fs-5">@r.Content</p>
-                <p>@r.Author.UserName &nbsp; @r.Date</p>    
+            <div class="p-5 offset-6">
+                <p class="fs-6">@r.Content</p>
+                <p class="text-muted">@r.Author.UserName &nbsp; @r.Date</p>    
             </div>    
         }
         else
         {
             <div class="p-5">
-                <p class="fs-5">@r.Content</p>
-                <p>@r.Author&nbsp;@r.Date.ToShortDateString()</p>
+                <p class="fs-6">@r.Content</p>
+                <p class="text-muted">@r.Author.UserName&nbsp;@r.Date.</p>
             </div>
         }
     }

@@ -117,7 +117,8 @@ public class ConverseController : Controller
             var conversation = await _repo.GetConversationByIdAsync(model.ConversationId);
             conversation.Responses.Add(reply);
             await _repo.UpdateConversationAsync(conversation);
-            return RedirectToAction("Index");
+            int converseId = conversation.ConversationId;
+            return RedirectToAction("Converse", new {id = converseId});
         }
         ModelState.AddModelError("", "There were data entry errors. Please check the form.");
         return View(model);
