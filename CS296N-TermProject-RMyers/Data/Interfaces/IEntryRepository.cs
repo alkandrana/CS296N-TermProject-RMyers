@@ -9,14 +9,12 @@ public interface IEntryRepository
     
     public Task<List<Contribution>> GetAllContributionsAsync();
 
-    public Task<List<int>> GetRandomArticleIdListAsync(int count);
+    public Task<List<int>> GetRandomArticlesAsync(int count);
     public Task<Article?> GetArticleByIdAsync(int id);
     
     public Task<Conversation?> GetConversationByIdAsync(int id);
     
     public Task<Contribution?> GetContributionByIdAsync(int id);
-
-    public Task<int> GetRandomArticleIdAsync();
     
     public Task<int> CountArticlesAsync();
     

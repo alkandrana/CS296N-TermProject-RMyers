@@ -55,22 +55,10 @@ public class RepoTests
     }
 
     [Fact]
-    public void TestGetRandomArticleAsync()
+    public void TestGetRandomArticlesAsync_LessThan()
     {
         // Arrange
-        int select = _repo.GetRandomArticleIdAsync().Result;
-        Article a = _repo.GetArticleByIdAsync(select).Result;
-        // Assert
-        Assert.NotNull(a);
-        // Output
-        _output.WriteLine("Title " + a.Title);
-    }
-
-    [Fact]
-    public void TestGetRandomArticleListAsync_LessThan()
-    {
-        // Arrange
-        List<int> selection = _repo.GetRandomArticleIdListAsync(3).Result;
+        List<int> selection = _repo.GetRandomArticlesAsync(3).Result;
         // Assert
         Assert.Equal(selection, selection.Distinct().ToList());
         Assert.Equal(2, selection.Count);
@@ -88,7 +76,7 @@ public class RepoTests
         // Arrange
         int status = DoubleArticleList();
         // Act
-        List<int> selection = _repo.GetRandomArticleIdListAsync(3).Result;
+        List<int> selection = _repo.GetRandomArticlesAsync(3).Result;
         // Assert
         Assert.True(status > 0);
         Assert.Equal(selection, selection.Distinct().ToList());
@@ -148,7 +136,9 @@ public class RepoTests
     public void TestUpdateArticleSuccess()
     {
         // Arrange
-        int id = _repo.GetRandomArticleIdAsync().Result;
+        Random gen = new Random();
+        int max = _repo.CountArticlesAsync().Result;
+        int id = gen.Next(1, max + 1);
         Article update = _repo.GetArticleByIdAsync(id).Result;
         // Act
         update.Title = "This Title Has Been Edited";

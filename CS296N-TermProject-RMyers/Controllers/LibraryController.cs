@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CS296N_TermProject_RMyers.Controllers;
 
-[Authorize]
 public class LibraryController : Controller
 {
     private IEntryRepository _repo;
@@ -21,7 +20,7 @@ public class LibraryController : Controller
     public async Task<IActionResult> Index()
     {
         // link to randomly-selected articles on the search page
-        List<int> model = await _repo.GetRandomArticleIdListAsync(3);
+        List<int> model = await _repo.GetRandomArticlesAsync(3);
         return View(model);
     }
 

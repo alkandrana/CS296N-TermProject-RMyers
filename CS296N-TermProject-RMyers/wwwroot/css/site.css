@@ -15,8 +15,9 @@ html {
 
 body {
   margin-bottom: 60px;
-  background-image: url("../pics/peter-herrmann-library.jpg");
-  background-repeat: round;
+  background-color: #4e0202;
+  /*background-image: url("../pics/peter-herrmann-library.jpg");
+  background-repeat: round;*/
   font-family: 'Palatino Linotype', "Book Antiqua", Palatino, serif
 }
 

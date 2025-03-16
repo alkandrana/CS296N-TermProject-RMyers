@@ -20,25 +20,10 @@ public class FakeEntryRepository : IEntryRepository
         return _contributions;
     }
 
-    public async Task<List<int>> GetRandomArticleIdListAsync(int count)
+    public async Task<List<int>> GetRandomArticlesAsync(int count)
     {
-        List<int> selection = new List<int>();
-        if (count < _articles.Count())
-        {
-            int id = await GetRandomArticleIdAsync();
-            for (int i = 0; i < count; i++)
-            {
-                while (selection.Contains(id))
-                {
-                    id = await GetRandomArticleIdAsync();
-                }
-                selection.Add(id);
-            }
-        }
-        else
-        {
-            selection = _articles.Select(a => a.ArticleId).ToList();
-        }
+        List<int> ids = Shuffle(_articles.Select(a => a.ArticleId).ToList());
+        List<int> selection = count < ids.Count ? ids.GetRange(0, count) : ids;
         return selection;
     }
 
@@ -55,16 +40,6 @@ public class FakeEntryRepository : IEntryRepository
     public async Task<Contribution?> GetContributionByIdAsync(int id)
     {
         return _contributions.Find(r => r.ContributionId == id);
-    }
-    
-    public async Task<int> GetRandomArticleIdAsync()
-    {
-        Random gen = new Random();
-        int max = _articles.Count();
-        List<int> ids = _articles.Select(a => a.ArticleId).ToList();
-        int randNum = gen.Next(0, max);
-        int id = ids[randNum];
-        return id;
     }
 
     public async Task<int> CountArticlesAsync()
@@ -199,5 +174,14 @@ public class FakeEntryRepository : IEntryRepository
         return _articles;
     }
     
-    
+    public List<int> Shuffle(List<int> list)
+    {
+        Random gen = new Random();
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            var rand = gen.Next(i + 1);
+            (list[rand], list[i]) = (list[i], list[rand]);
+        }
+        return list;
+    }
 }
