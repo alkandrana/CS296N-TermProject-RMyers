@@ -13,9 +13,9 @@ public class EntryRepository : IEntryRepository
     }
     public async Task<List<Article>> GetAllArticlesAsync()
     {
-        var entries = await _context.Articles.Include(e => e.Author).Include(
-            e => e.Category).ToListAsync();
-        return entries;
+        var articles = await _context.Articles.Include(a => a.Author).Include(
+            a => a.Category).ToListAsync();
+        return articles;
     }
 
     public async Task<List<Conversation>> GetAllConversationsAsync()
@@ -160,10 +160,7 @@ public class EntryRepository : IEntryRepository
 
     public async Task<List<Category>> GetAllCategoriesAsync()
     {
-        List<Category> categories = await _context.Categories.Include(   
-            c => c.Articles).OrderByDescending( 
-            c => c.Articles.Count).ToListAsync(); 
-        
+        List<Category> categories = await _context.Categories.ToListAsync(); 
         return categories;
     }
 }

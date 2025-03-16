@@ -90,7 +90,7 @@ public class ConverseController : Controller
         return View(model);
     }
 
-    public async Task<IActionResult> Reply(int id)
+    public IActionResult Reply(int id)
     {
         var model = new ResponseVM
         {

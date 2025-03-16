@@ -29,8 +29,8 @@ public class LibraryController : Controller
     {
         //TODO: simplify this repo method
         // load the articles according to their category
-        var categories = await _repo.GetAllCategoriesAsync();
-        return View(categories);
+        var articles = _repo.GetAllArticlesAsync().Result.OrderBy(a => a.Category.Name).ToList();
+        return View(articles);
     }
 
     public async Task<IActionResult> Search(string key)

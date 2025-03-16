@@ -1,4 +1,4 @@
-@model List<Category>
+@model List<Article>
 @{
     ViewData["Title"] = "Browse the Library";
 }
@@ -9,23 +9,22 @@
         contained in that category. Follow the links to review a specific article.
     </p>
 </div>
-
-<div class="container pt-3">
-    <div class="row">
+<div class="ms-5">
         @if (Model.Count > 0)
         {
-            foreach (Category c in Model)
+            List<string> catNames = new List<string>();
+            foreach (Article a in Model)
             {
-                <details class="col-4 m-5">
-                    <summary class="p-1" style="font-size: x-large; font-weight: bolder">@c.Name</summary>
-                    @foreach (Article e in c.Articles)
-                    {
-                        <p>
-                            <a asp-action="SearchById" asp-controller="Library" asp-route-id="@e.ArticleId">@e.Title</a>
-                        </p>
-                    }
-                </details>
+                if (!catNames.Contains(a.CategoryId))
+                {
+                    <h4 class="pt-5">@a.Category.Name</h4>
+                    <p><a asp-action="SearchById" asp-controller="Library" asp-route-id="@a.ArticleId">@a.Title</a></p>
+                    catNames.Add(a.CategoryId);
+                }
+                else
+                {
+                    <p><a asp-action="SearchById" asp-controller="Library" asp-route-id="@a.ArticleId">@a.Title</a></p>
+                }
             }
         }
-    </div>
 </div>
