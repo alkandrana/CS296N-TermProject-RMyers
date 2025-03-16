@@ -163,7 +163,7 @@
         </HTTPSamplerProxy>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tea Room">
-          <stringProp name="HTTPSampler.path">/Converse/Converse/1</stringProp>
+          <stringProp name="HTTPSampler.path">/Converse/ConversePage/1</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>

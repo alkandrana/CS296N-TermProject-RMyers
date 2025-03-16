@@ -84,10 +84,10 @@ public class ConverseController : Controller
         return View(model);
     }
 
-    public async Task<IActionResult> Converse(int id)
+    public async Task<IActionResult> ConversePage(int id)
     {
         Conversation? model = await _repo.GetConversationByIdAsync(id);
-        return View("ConversePage", model);
+        return View(model);
     }
 
     public IActionResult Reply(int id)
@@ -118,7 +118,7 @@ public class ConverseController : Controller
             conversation.Responses.Add(reply);
             await _repo.UpdateConversationAsync(conversation);
             int converseId = conversation.ConversationId;
-            return RedirectToAction("Converse", new {id = converseId});
+            return RedirectToAction("ConversePage", new {id = converseId});
         }
         ModelState.AddModelError("", "There were data entry errors. Please check the form.");
         return View(model);
