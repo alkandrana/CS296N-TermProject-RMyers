@@ -28,7 +28,8 @@ public class LibraryController : Controller
     {
         //TODO: simplify this repo method
         // load the articles according to their category
-        var articles = _repo.GetAllArticlesAsync().Result.OrderBy(a => a.Category.Name).ToList();
+        var articles = _repo.GetAllArticlesAsync().Result.Where(a => !a.Protected)
+            .OrderBy(a => a.Category.Name).ToList();
         return View(articles);
     }
 
@@ -37,7 +38,7 @@ public class LibraryController : Controller
         List<Article> entries = await _repo.GetAllArticlesAsync();
         // TODO: 1. return list of search results 2. search both title and contents
         Article? model = entries.FirstOrDefault(
-            e => e.Title.ToLower().Contains(key.ToLower()));
+            a => a.Title.ToLower().Contains(key.ToLower()));
         return View("Reader", model);
     }
 

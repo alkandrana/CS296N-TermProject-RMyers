@@ -13,7 +13,16 @@
     </h6>
     <a asp-action="Contribute" asp-controller="Converse" class="m-5 btn btn-danger form-control">Contribution Form</a>
 }
-else
+else if (Model.Protected)
+{
+    <h5>Due to the sensitivity of its content, this article is protected. Please enter the correct answer below in order to view it:</h5>
+    <form method="post" asp-action="Validate">
+        <label id="riddle">What is the identity of the primary instigator of the Ilayshi's persecution of the Alsacian movement?</label>
+        <input type="text" id="riddle" name="riddle"/>
+        <input type="hidden" name="id" value="@Model.ArticleId"/>
+        <button type="submit" class="btn btn-secondary">Answer</button>
+    </form>
+} else
 {
     <h3 class="text-center p-5">@Model.Title</h3>
     string[] formatted = Model.Content.Split('\n');

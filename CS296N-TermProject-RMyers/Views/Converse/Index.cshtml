@@ -1,28 +1,20 @@
-@model List<Conversation>
 
 @{
-    ViewBag.Title = "Conversation Portal";
+    ViewBag.Title = "Converse Home";
 }
 
-<h2 class="pb-5 text-center">Conversation Portal</h2>
-<p class="pb-5 w-75 fst-italic text-center element-center">
-    Each of the links below represents a conversation in progress.
-    Click on one of the links to join the conversation, or click
-    on the button below to start a new topic.
+<h2>Converse Home</h2>
+<p class="fst-italic text-center fs-5 p-5">
+    This is where you may directly participate in the Library's operations, and connect with other members of the community.
+    The Portal button will take you to a platform where you may join in the conversation with other participants.
+    The Contribute button will take you to a form where you may submit an entry for inclusion in the Library's records.
 </p>
-@if (Model.Count > 0)
-{
-    <ul>
-        @foreach (Conversation c in Model)
-        {
-            <li><a asp-action="Converse" asp-controller="Converse" asp-route-id="@c.ConversationId">@c.Title</a></li>
-        }
-    </ul>
-}
-else
-{
-    <p class="fs-2 fst-italic text-info text-center p-5">There are no conversations yet. Want to start one?</p>
-}
-<a asp-action="Start" asp-controller="Converse" class="btn btn-info offset-8 mt-5">
-    Start a New Conversation
-</a>
+
+<div class="row">
+    <div class="col">
+        <a asp-action="Portal" asp-controller="Converse" class="btn btn-danger red text-light offset-4">Conversation Portal</a>
+    </div>
+    <div class="col">
+        <a asp-action="Contribute" asp-controller="Converse" class="btn btn-success offset-4">Contribution Form</a>
+    </div>
+</div>

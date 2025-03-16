@@ -1,0 +1,28 @@
+@model List<Conversation>
+
+@{
+    ViewBag.Title = "Conversation Portal";
+}
+
+<h2 class="pb-5 text-center">Conversation Portal</h2>
+<p class="pb-5 w-75 fst-italic text-center element-center">
+    Each of the links below represents a conversation in progress.
+    Click on one of the links to join the conversation, or click
+    on the button below to start a new topic.
+</p>
+@if (Model.Count > 0)
+{
+    <ul>
+        @foreach (Conversation c in Model)
+        {
+            <li><a asp-action="ConversePage" asp-controller="Converse" asp-route-id="@c.ConversationId">@c.Title</a></li>
+        }
+    </ul>
+}
+else
+{
+    <p class="fs-2 fst-italic text-info text-center p-5">There are no conversations yet. Want to start one?</p>
+}
+<a asp-action="Start" asp-controller="Converse" class="btn btn-info offset-8 mt-5">
+    Start a New Conversation
+</a>

@@ -2,6 +2,10 @@
 @{
     ViewData["Title"] = "Library Catalog";
 }
+@if (ViewBag.InvalidAnswer != null)
+{
+    <p class="text-danger">@ViewBag.InvalidAnswer</p>
+}
 
 <h1 class="text-center">Welcome to the Library Catalog</h1>
 <form asp-action="Search" asp-controller="Library" class="container">
@@ -20,7 +24,7 @@
     <div class="img-links">
         <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[0]" class="m-4"><img src="pics/k-mitch-hodge-castle-unslpash.jpg" alt="castle in a green woodsy clearing"/></a>
         <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[1]" class="m-3"><img src="pics/Bruno-crystal-ball-pixabay.jpg" alt="purple crystal ball"/></a>
-        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[2]" class="m-5"><img src="pics/jim-cooper-fire-dragon-pixabay.jpg" alt="fiery dragon perched on top of a hill"/></a>    
+        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[2]" class="m-5"><img src="pics/jim-cooper-fire-dragon-pixabay.jpg" alt="fiery dragon perched on top of a hill"/></a>
     </div>
     
 </div>

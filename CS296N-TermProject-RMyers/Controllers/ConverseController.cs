@@ -18,9 +18,14 @@ public class ConverseController : Controller
         _repo = r;
         _userManager = userMngr;
     }
+
+    public IActionResult Index()
+    {
+        return View();
+    }
     
     // GET
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Portal()
     {
         var model = await _repo.GetAllConversationsAsync();
         return View(model);

@@ -39,7 +39,7 @@ public class EntryRepository : IEntryRepository
 
     public async Task<List<int>> GetRandomArticlesAsync(int count)
     {
-        List<int> ids = Shuffle(_context.Articles.Select(a => a.ArticleId).ToListAsync().Result);
+        List<int> ids = Shuffle(_context.Articles.Where(a => !a.Protected).Select(a => a.ArticleId).ToListAsync().Result);
         var selection = count < _context.Articles.Count() ? ids.GetRange(0, count) : ids;
         return selection;
     }
@@ -69,7 +69,7 @@ public class EntryRepository : IEntryRepository
         return conversation;
     }
 
-    public async Task<Contribution> GetContributionByIdAsync(int id)
+    public async Task<Contribution?> GetContributionByIdAsync(int id)
     {
         var contribution = await _context.Contributions.Include(
                 c => c.Contributor
