@@ -87,7 +87,7 @@ public class ConverseController : Controller
     public async Task<IActionResult> Converse(int id)
     {
         Conversation? model = await _repo.GetConversationByIdAsync(id);
-        return View(model);
+        return View("ConversePage", model);
     }
 
     public IActionResult Reply(int id)
