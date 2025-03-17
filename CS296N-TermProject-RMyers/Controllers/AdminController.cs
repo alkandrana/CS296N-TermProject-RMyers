@@ -23,7 +23,11 @@ public class AdminController : Controller
     }
 
 
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
+    {
+        return View();
+    }
+    public async Task<IActionResult> Manage()
     {
         List<AppUser> users = new List<AppUser>();
         foreach (AppUser user in (_userManager.Users.ToList()))
@@ -143,12 +147,12 @@ public class AdminController : Controller
         return View(model);
     }
 
-    public async Task<IActionResult> Manage()
+    public async Task<IActionResult> Vet()
     {
         List<Contribution> model = await _repo.GetAllContributionsAsync();
         return View(model);
     }
-    public async Task<IActionResult> Vet(int id)
+    public async Task<IActionResult> EditContribution(int id)
     {
         var contribution = await _repo.GetContributionByIdAsync(id);
         if (contribution != null)
@@ -170,7 +174,7 @@ public class AdminController : Controller
                                     " Please try again. If the problem persists, " +
                                     "contact the Engineering department.";
             }
-            return RedirectToAction("Manage");
+            return View("Vet");
         }
     }
     

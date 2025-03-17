@@ -1,49 +1,98 @@
-@model List<Contribution>
-
+@model UserVM
 @{
-    ViewBag.Title = "Contribution Management";
+    ViewBag.Title = "Admin Portal";
 }
+<a asp-action="Index">Back to Portal</a>
+<h2 class="p-5">Admin Portal</h2>
+<span class="text-success">@TempData["message"]</span>
 
-<h2>Contribution Management</h2>
-<p class="p-5 fst-italic fs-5">
-    Listed below are all outstanding contributions with all relevant data. 
-    Click on the link in order to vet it.
-</p>
-@if (Model.Count > 0)
+<table class="table table-dark table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Roles</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.Users.Count() == 0)
+    {
+        <tr>
+            <td colspan="5">There are no user accounts</td>
+        </tr>
+    }
+    else
+    {
+        @foreach (AppUser user in Model.Users)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>
+                    @foreach (string roleName in user.RoleNames)
+                    {
+                        <div>@roleName</div>
+                    }
+                </td>
+                <td>
+                    <form method="post" asp-action="DeleteUser" asp-route-id="@user.Id">
+                        <button type="submit" class="btn btn-danger">
+                            Delete User
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-action="AddToAdmin" asp-route-id="@user.Id">
+                        <button type="submit" class="btn btn-success">
+                            Add To Admin
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-action="RemoveFromAdmin" asp-route-id="@user.Id">
+                        <button type="submit" class="btn btn-warning">
+                            Remove From Admin
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+<h1 class="mb-2 p-5">Manage Roles</h1>
+@if (Model.Roles.Count() == 0)
+{
+    <form method="post" asp-action="CreateAdminRole">
+        <button type="submit" class="btn btn-success">
+            Create Admin Role
+        </button>
+    </form>
+}
+else
 {
     <table class="table table-dark table-bordered table-striped">
         <thead>
         <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                Date Submitted
-            </th>
-            <th>
-                Submitted by
-            </th>
+            <th>Role</th><th></th>
         </tr>
         </thead>
         <tbody>
-        @foreach (Contribution c in Model)
+        @foreach (var role in Model.Roles)
         {
             <tr>
+                <td>@role.Name</td>
                 <td>
-                    <a asp-action="Vet" asp-controller="Admin" asp-route-id="@c.ContributionId">@c.Title</a>
-                </td>
-                <td>
-                    @c.Date
-                </td>
-                <td>
-                    @c.Contributor.UserName
+                    <form method="post" asp-action="DeleteRole" asp-route-id="@role.Id">
+                        <button type="submit" class="btn btn-warning">
+                            Delete Role
+                        </button>
+                    </form>
                 </td>
             </tr>
         }
         </tbody>
-    </table>    
-}
-else
-{
-    <p class="fs-4">There are no outstanding contributions at present.</p>
+    </table>
 }

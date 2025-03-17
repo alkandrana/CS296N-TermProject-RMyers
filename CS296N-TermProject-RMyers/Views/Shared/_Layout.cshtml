@@ -44,13 +44,16 @@
                         <a class="btn btn-dark dropdown-toggle" asp-controller="Admin" asp-action="Index" data-bs-toggle="dropdown"><span class="fas fa-cog"></span>&nbsp;Admin</a>
                         <ul class="dropdown-menu bg-dark text-light">
                             <li>
-                                <a class="dropdown-item text-light" asp-action="Index" asp-controller="Admin">User Management</a>
+                                <a class="dropdown-item text-light" asp-action="Index" asp-controller="Admin">Admin Portal</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-light" asp-action="Manage" asp-controller="Admin">User Management</a>
                             </li>
                             <li>
                                 <a class="dropdown-item text-light" asp-action="Select" asp-controller="Admin">Article Selection</a>
                             </li>
                             <li>
-                                <a class="dropdown-item text-light" asp-action="Manage" asp-controller="Admin">Contribution Management</a>
+                                <a class="dropdown-item text-light" asp-action="Vet" asp-controller="Admin">Contribution Management</a>
                             </li>
                         </ul>
                     </li>
