@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Tea Room";
 }
-
-<h2>Tea Room&#9;<span class="fa-solid fa-mug-hot"></span></h2>
+<a asp-action="Portal">Back to Conversation Portal</a>
+<h2 class="p-5">Tea Room&#9;<span class="fa-solid fa-mug-hot"></span></h2>
 <h4 class="element-center text-center pb-5">Title:&nbsp;@Model.FormatTitle()</h4>
 <div class="row bg-gradient bg-dark pt-3" id="topic">
     <p class="col-3 text-center">Topic:&nbsp;@Model.Category.Name</p>
