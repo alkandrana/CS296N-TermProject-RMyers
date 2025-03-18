@@ -26,7 +26,6 @@ public class LibraryController : Controller
 
     public async Task<IActionResult> Browse()
     {
-        //TODO: simplify this repo method
         // load the articles according to their category
         var articles = _repo.GetAllArticlesAsync().Result.Where(a => !a.Protected)
             .OrderBy(a => a.Category.Name).ToList();
