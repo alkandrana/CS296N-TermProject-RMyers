@@ -2,10 +2,6 @@
 @{
     ViewData["Title"] = "Library Catalog";
 }
-@if (ViewBag.InvalidAnswer != null)
-{
-    <p class="text-danger">@ViewBag.InvalidAnswer</p>
-}
 
 <h1 class="text-center">Welcome to the Library Catalog</h1>
 <form asp-action="Search" asp-controller="Library" class="container">
@@ -18,14 +14,21 @@
     From here you can use the search function above to search for a specific article or keyword, 
     or check out our featured articles below.
 </p>
-                
-<div class="mt-5">
-    <h2 class="text-center">Featured Articles:</h2>
-    <div class="img-links">
-        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[0]" class="m-4"><img src="pics/k-mitch-hodge-castle-unslpash.jpg" alt="castle in a green woodsy clearing"/></a>
-        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[1]" class="m-3"><img src="pics/Bruno-crystal-ball-pixabay.jpg" alt="purple crystal ball"/></a>
-        <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[2]" class="m-5"><img src="pics/jim-cooper-fire-dragon-pixabay.jpg" alt="fiery dragon perched on top of a hill"/></a>
-    </div>
+@if (Model.Count == 3)
+{
+    <div class="mt-5">
+        <h2 class="text-center">Featured Articles:</h2>
+        <div class="img-links row">
+            <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[0]" class="col-md-4"><img src="pics/k-mitch-hodge-castle-unslpash.jpg" alt="castle in a green woodsy clearing" class="container"/></a>
+            <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[1]" class="col-md-4"><img src="pics/Bruno-crystal-ball-pixabay.jpg" alt="purple crystal ball" class="container"/></a>
+            <a asp-controller="Library" asp-action="SearchById" asp-route-id="@Model[2]" class="col-md-4"><img src="pics/jim-cooper-fire-dragon-pixabay.jpg" alt="fiery dragon perched on top of a hill" class="container"/></a>
+        </div>
     
-</div>
+    </div>
+}
+else
+{
+    <p class="fst-italic fs-5">There are not enough articles to display.</p>
+}      
+
 

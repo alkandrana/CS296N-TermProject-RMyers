@@ -8,7 +8,7 @@ public class SeedData
 {
     public static void Seed(AppDbContext ctx, IServiceProvider provider)
     {
-        if (!ctx.Articles.Any())
+        if (!ctx.Categories.Any())
         {
             #region categories
 
