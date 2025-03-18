@@ -102,9 +102,16 @@ public class FakeEntryRepository : IEntryRepository
         return status;
     }
 
-    public Task<int> DeleteConversationAsync(Conversation model)
+    public async Task<int> DeleteConversationAsync(Conversation model)
     {
-        throw new NotImplementedException();
+        int status = 0;
+        if (_conversations[model.ConversationId - 1] == model)
+        {
+            _conversations.RemoveAt(model.ConversationId - 1);
+            status = 1;
+        }
+
+        return status;
     }
 
     /*public int StoreAppUser(AppUser model)

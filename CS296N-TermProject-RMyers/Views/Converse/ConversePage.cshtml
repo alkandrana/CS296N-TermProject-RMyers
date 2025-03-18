@@ -31,7 +31,11 @@
         {
             <div class="p-5 offset-6">
                 <p class="fs-6">@r.Content</p>
-                <p class="text-muted">@r.Author.UserName &nbsp; @r.Date</p>    
+                <p class="text-muted">@r.Author.UserName &nbsp; @r.Date</p>
+                @if (r.Author == ViewBag.CurrentUser)
+                {
+                    <a asp-action="DeleteReply" asp-route-id="@r.ResponseId" class="link-danger">Delete</a>
+                }
             </div>    
         }
         else

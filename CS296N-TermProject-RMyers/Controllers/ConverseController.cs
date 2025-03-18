@@ -93,6 +93,7 @@ public class ConverseController : Controller
     public async Task<IActionResult> ConversePage(int id)
     {
         Conversation? model = await _repo.GetConversationByIdAsync(id);
+        ViewBag.CurrentUser = await _userManager.GetUserAsync(User);
         return View(model);
     }
 
@@ -133,21 +134,31 @@ public class ConverseController : Controller
     public async Task<IActionResult> DeleteConversation(int id)
     {
         var conversation = await _repo.GetConversationByIdAsync(id);
+        return View("Delete", conversation);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> ConfirmDeleteConversation(int ConversationId)
+    {
+        var conversation = await _repo.GetConversationByIdAsync(ConversationId);
         var user = await _userManager.GetUserAsync(User);
-        if (user == conversation.Author)
+        if (user == conversation.Author || User.IsInRole("Admin"))
         {
             if (await _repo.DeleteConversationAsync(conversation) > 0)
             {
                 TempData["message"] = "Conversation successfully deleted.";
+                TempData["type"] = "success";
             }
             else
             {
                 TempData["message"] = "There was a problem deleting the conversation. Please try again.";
+                TempData["type"] = "danger";
             }
         }
         else
         {
             TempData["message"] = "There was a problem deleting the conversation. Make sure you have the proper authorization.";
+            TempData["type"] = "danger";
         }
         return RedirectToAction("Portal");
     }
