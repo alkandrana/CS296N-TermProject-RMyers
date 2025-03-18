@@ -114,6 +114,12 @@ public class EntryRepository : IEntryRepository
         return await _context.SaveChangesAsync();
     }
 
+    public async Task<int> DeleteConversationAsync(Conversation model)
+    {
+        _context.Conversations.Remove(model);
+        return await _context.SaveChangesAsync();
+    }
+
     public async Task<int> UpdateArticleAsync(Article model)
     {
         _context.Articles.Update(model);

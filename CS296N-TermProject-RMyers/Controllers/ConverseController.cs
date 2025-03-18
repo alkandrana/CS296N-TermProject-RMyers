@@ -28,6 +28,7 @@ public class ConverseController : Controller
     public async Task<IActionResult> Portal()
     {
         var model = await _repo.GetAllConversationsAsync();
+        ViewBag.CurrentUser = await _userManager.GetUserAsync(User);
         return View(model);
     }
 
@@ -127,5 +128,27 @@ public class ConverseController : Controller
         }
         ModelState.AddModelError("", "There were data entry errors. Please check the form.");
         return View(model);
+    }
+
+    public async Task<IActionResult> DeleteConversation(int id)
+    {
+        var conversation = await _repo.GetConversationByIdAsync(id);
+        var user = await _userManager.GetUserAsync(User);
+        if (user == conversation.Author)
+        {
+            if (await _repo.DeleteConversationAsync(conversation) > 0)
+            {
+                TempData["message"] = "Conversation successfully deleted.";
+            }
+            else
+            {
+                TempData["message"] = "There was a problem deleting the conversation. Please try again.";
+            }
+        }
+        else
+        {
+            TempData["message"] = "There was a problem deleting the conversation. Make sure you have the proper authorization.";
+        }
+        return RedirectToAction("Portal");
     }
 }
