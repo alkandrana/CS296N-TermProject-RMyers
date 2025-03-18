@@ -5,8 +5,8 @@
 <div>
     <h1 class="text-center">Browse the Library</h1>
     <p class="pb-5 pt-5 px-2 divider fst-italic fs-4">
-        Use the topics below to browse the contents of the Library. Each topic toggles to reveal the specific articles
-        contained in that category. Follow the links to review a specific article.
+        Use the topics below to browse the contents of the Library. Articles are grouped by category, and categories are displayed alphabetically. 
+        Follow the links to review a specific article.
     </p>
 </div>
 <div class="ms-5">
@@ -18,12 +18,12 @@
                 if (!catNames.Contains(a.CategoryId))
                 {
                     <h4 class="pt-5">@a.Category.Name</h4>
-                    <p><a asp-action="SearchById" asp-controller="Library" asp-route-id="@a.ArticleId">@a.Title</a></p>
+                    <p><a asp-action="SearchById" asp-controller="Library" asp-route-id="@a.ArticleId" class="offset-md-2">@a.Title</a></p>
                     catNames.Add(a.CategoryId);
                 }
                 else
                 {
-                    <p><a asp-action="SearchById" asp-controller="Library" asp-route-id="@a.ArticleId">@a.Title</a></p>
+                    <p><a asp-action="SearchById" asp-controller="Library" asp-route-id="@a.ArticleId" class="offset-md-2">@a.Title</a></p>
                 }
             }
         }

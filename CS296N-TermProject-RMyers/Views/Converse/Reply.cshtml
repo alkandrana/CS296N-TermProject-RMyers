@@ -17,10 +17,8 @@
             <span asp-validation-for="Content" class="text-danger"></span>
         </div>
     </div>
-    <div class="row p-2">
-        <div class="col-md-2 offset-md-8">
-            <button type="submit" class="form-control btn btn-outline-success">Reply</button>
-            <a asp-controller="Converse" asp-action="Index" class="btn btn-danger">Cancel</a>
-        </div>
+    <div class="row p-2 offset-8">
+            <button type="submit" class="btn btn-outline-success col-md-2 me-3">Reply</button>
+            <a asp-controller="Converse" asp-action="Index" class="btn btn-danger col-md-2">Cancel</a>
     </div>
 </form>
