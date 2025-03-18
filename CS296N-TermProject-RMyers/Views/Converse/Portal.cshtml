@@ -1,3 +1,4 @@
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model List<Conversation>
 
 @{
@@ -16,6 +17,11 @@
         @foreach (Conversation c in Model)
         {
             <li><a asp-action="ConversePage" asp-controller="Converse" asp-route-id="@c.ConversationId">@c.Title</a></li>
+            @if (ViewBag.CurrentUser == @c.Author || ViewBag.CurrentUser.IsInRole("Admin"))
+            {
+                <li><a asp-action="DeleteConversation" asp-route-id="@c.ConversationId">Delete</a></li>    
+            }
+            
         }
     </ul>
 }

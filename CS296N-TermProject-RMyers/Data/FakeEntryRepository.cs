@@ -102,6 +102,11 @@ public class FakeEntryRepository : IEntryRepository
         return status;
     }
 
+    public Task<int> DeleteConversationAsync(Conversation model)
+    {
+        throw new NotImplementedException();
+    }
+
     /*public int StoreAppUser(AppUser model)
     {
         int status = 0;

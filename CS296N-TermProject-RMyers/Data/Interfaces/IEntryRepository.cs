@@ -27,6 +27,8 @@ public interface IEntryRepository
     
     public Task<int> StoreConversationAsync(Conversation model);
     
+    public Task<int> DeleteConversationAsync(Conversation model);
+    
     public Task<List<Category>> GetAllCategoriesAsync();
     
     public Task<int> UpdateArticleAsync(Article model);
