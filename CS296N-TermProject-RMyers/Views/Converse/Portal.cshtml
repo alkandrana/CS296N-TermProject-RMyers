@@ -5,13 +5,13 @@
     ViewBag.Title = "Conversation Portal";
 }
 
-<h2 class="pb-5 text-center">Conversation Portal</h2>
+<h2 class="text-center">Conversation Portal</h2>
 @if (TempData["message"] != null)
 {
     <span class="text-@TempData["type"]">@TempData["message"]</span>
 }
 
-<p class="pb-5 w-75 fst-italic text-center element-center">
+<p class="p-5 w-75 fst-italic text-center element-center">
     Each of the links below represents a conversation in progress.
     Click on one of the links to join the conversation, or click
     on the button below to start a new topic.

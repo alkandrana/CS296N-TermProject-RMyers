@@ -76,7 +76,7 @@ public class ConverseController : Controller
             if (await _repo.StoreConversationAsync(model) > 0)
             {
                 var conversations = await _repo.GetAllConversationsAsync();
-                return RedirectToAction("Index", conversations);
+                return RedirectToAction("Portal", conversations);
             }
             
             ModelState.AddModelError("", "There was a problem saving the conversation. Please try again.");
