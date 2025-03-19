@@ -60,9 +60,15 @@ public class AdminController : Controller
                 }
 
                 TempData["message"] = errorMessage;
+                TempData["type"] = "danger";
+            }
+            else
+            {
+                TempData["message"] = user.UserName + " successfully deleted";
+                TempData["type"] = "success";
             }
         }
-        return RedirectToAction("Index");
+        return RedirectToAction("Manage");
     }
 
     [HttpPost]
@@ -79,7 +85,7 @@ public class AdminController : Controller
             AppUser user = await _userManager.FindByIdAsync(id);
             await _userManager.AddToRoleAsync(user, adminRole.Name);
         }
-        return RedirectToAction("Index");
+        return RedirectToAction("Manage");
     }
 
     [HttpPost]
@@ -89,9 +95,9 @@ public class AdminController : Controller
         var result = await _userManager.RemoveFromRoleAsync(user, "Admin");
         if (result.Succeeded)
         {
-            TempData["message"] = user.UserName + "has been successfully removed from the admin role.";
+            TempData["message"] = user.UserName + " has been successfully removed from the admin role.";
         }
-        return RedirectToAction("Index");
+        return RedirectToAction("Manage");
     }
 
     [HttpPost]
@@ -102,7 +108,7 @@ public class AdminController : Controller
         {
             TempData["message"] = "Admin role has been successfully created.";
         }
-        return RedirectToAction("Index");
+        return RedirectToAction("Manage");
     }
 
     [HttpPost]
@@ -114,7 +120,7 @@ public class AdminController : Controller
         {
             TempData["message"] = role.Name + " role has been successfully deleted.";
         }
-        return RedirectToAction("Index");
+        return RedirectToAction("Manage");
     }
     public async Task<IActionResult> Edit(int id)
     {
@@ -132,7 +138,7 @@ public class AdminController : Controller
             if (await _repo.UpdateArticleAsync(model) > 0)
             {
                 // TODO: change Contribution status to not active
-                return RedirectToAction("Index");
+                return RedirectToAction("Select");
             }
             ModelState.AddModelError("", "There was a problem updating the article.");
         }
@@ -149,7 +155,8 @@ public class AdminController : Controller
 
     public async Task<IActionResult> Vet()
     {
-        List<Contribution> model = await _repo.GetAllContributionsAsync();
+        List<Contribution> model = _repo.GetAllContributionsAsync().Result
+            .Where(c => !c.Archived).ToList();
         return View(model);
     }
     public async Task<IActionResult> EditContribution(int id)
@@ -180,17 +187,18 @@ public class AdminController : Controller
     
     public async Task<IActionResult> Archive(int id)
     {
-        var conversation = await _repo.GetContributionByIdAsync(id);
-        if (await _repo.UpdateContributionAsync(conversation) > 0)
+        var contribution = await _repo.GetContributionByIdAsync(id);
+        contribution.Archived = true;
+        if (await _repo.UpdateContributionAsync(contribution) > 0)
         {
-            TempData["message"] = "Conversation successfully archived.";
+            TempData["message"] = "Contribution successfully archived.";
             TempData["type"] = "success";
         } else
         {
             TempData["message"] = "There was a problem updating the database. Please try again.";
             TempData["type"] = "danger";
         }
-        return View("Vet");
+        return RedirectToAction("Vet");
     }
     
 }

@@ -21,9 +21,9 @@
     <ul>
         @foreach (Conversation c in Model)
         {
-            <li class="row">
+            <li class="row p-3">
                 <a asp-action="ConversePage" asp-controller="Converse" asp-route-id="@c.ConversationId" class="col-md-4">@c.Title</a>
-                @if (ViewBag.CurrentUser == @c.Author || User.IsInRole("Admin"))
+                @if (ViewBag.CurrentUser == c.Author || User.IsInRole("Admin"))
                 {
                     <a asp-action="DeleteConversation" asp-route-id="@c.ConversationId" class="col-md-1 btn btn-danger">Delete</a>
                 }
