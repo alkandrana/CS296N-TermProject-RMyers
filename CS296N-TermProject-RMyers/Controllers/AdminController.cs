@@ -178,4 +178,19 @@ public class AdminController : Controller
         }
     }
     
+    public async Task<IActionResult> Archive(int id)
+    {
+        var conversation = await _repo.GetContributionByIdAsync(id);
+        if (await _repo.UpdateContributionAsync(conversation) > 0)
+        {
+            TempData["message"] = "Conversation successfully archived.";
+            TempData["type"] = "success";
+        } else
+        {
+            TempData["message"] = "There was a problem updating the database. Please try again.";
+            TempData["type"] = "danger";
+        }
+        return View("Vet");
+    }
+    
 }

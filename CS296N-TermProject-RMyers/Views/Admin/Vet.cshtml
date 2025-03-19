@@ -4,6 +4,11 @@
     ViewBag.Title = "Contribution Management";
 }
 <a asp-action="Index">Back to Portal</a>
+@if (TempData["message"] != null)
+{
+    <div class="text-@TempData["type"]">@TempData["message"]</div>
+}
+
 <h2 class="p-5">Contribution Management</h2>
 <p class="p-5 fst-italic fs-5">
     Listed below are all outstanding contributions with all relevant data. 
@@ -23,6 +28,7 @@
             <th>
                 Submitted by
             </th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +44,7 @@
                 <td>
                     @c.Contributor.UserName
                 </td>
+                <td><a asp-action="Archive" asp-route-id="@c.ContributionId" class="text-danger">Archive</a></td>
             </tr>
         }
         </tbody>

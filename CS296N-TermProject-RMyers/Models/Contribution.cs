@@ -15,5 +15,7 @@ public class Contribution : Entry
     public DateTime Date { get; set; }
     
     public AppUser? Contributor { get; set; }
-    
+
+    public bool Archived { get; set; } = false;
+
 }
