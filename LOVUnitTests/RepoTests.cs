@@ -39,7 +39,25 @@ public class RepoTests
             Category = new Category{CategoryId = "B", Name = "Biography"},
             CategoryId = "B"
         });
-        
+
+        _repo.StoreConversationAsync(new Conversation
+        {
+            Title = "Dynastic cycles",
+            CategoryId = "H",
+            Content = "Maybe it's just me, but I've always found this a very queer pattern.",
+            StartDate = DateTime.Now,
+            Author = new AppUser { UserName = "alkandrana", SignUpDate = new DateTime(2013, 12, 25) },
+            Responses = new List<Response>
+            {
+                new Response
+                {
+                    Author = new AppUser { UserName = "hilda", SignUpDate = new DateTime(2002, 04, 12) },
+                    Content = "It is a remarkably reliable pattern.",
+                    Date = DateTime.Now
+                }
+            }
+        });
+
     }
 
     [Fact]
@@ -173,6 +191,27 @@ public class RepoTests
         _output.WriteLine("Update code: " + status);
         _output.WriteLine("Substance: " + update.Content.Substring(0, 50));
         _output.WriteLine("Old Id: " + id + "\nNew Id: " + update.ArticleId);
+    }
+    [Fact]
+    public void TestDeleteConversation_Success()
+    {
+        var model = _repo.GetConversationByIdAsync(1).Result;
+        int status = _repo.DeleteConversationAsync(model).Result;
+        Assert.NotNull(model);
+        Assert.True(status > 0);
+        Assert.Empty(_repo.GetAllConversationsAsync().Result);
+    }
+
+    [Fact]
+    public void TestDeleteConversationFailure()
+    {
+        Conversation model = new Conversation{ConversationId = 1};
+        int status = _repo.DeleteConversationAsync(model).Result;
+        var conversations = _repo.GetAllConversationsAsync().Result;
+        bool stored = conversations.Contains(model);
+        Assert.False(stored);
+        Assert.True(status == 0);
+        Assert.Single(_repo.GetAllConversationsAsync().Result);
     }
     #region HelperMethods
     public int DoubleArticleList()

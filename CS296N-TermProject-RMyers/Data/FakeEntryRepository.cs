@@ -114,18 +114,6 @@ public class FakeEntryRepository : IEntryRepository
         return status;
     }
 
-    /*public int StoreAppUser(AppUser model)
-    {
-        int status = 0;
-        if (model != null)
-        {
-            model.AppUserId = _users.Count + 1;
-            _users.Add(model);
-        }
-        return status;
-    }
-    */
-
     public async Task<int> UpdateArticleAsync(Article model)
     {
         int status = 0;
@@ -170,16 +158,6 @@ public class FakeEntryRepository : IEntryRepository
         }
         return categories;
     }
-    
-    /*public List<AppUser> GetAllUsers()
-    {
-        List<AppUser> users = new List<AppUser>();
-        foreach (Article e in _articles)
-        {
-            users.Add(e.Contributor);
-        }
-        return users;
-    }*/
 
     public async Task<List<Article>> GetAllArticlesAsync()
     {

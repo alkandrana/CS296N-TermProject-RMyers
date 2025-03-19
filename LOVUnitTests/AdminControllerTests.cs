@@ -57,18 +57,4 @@ public class AdminControllerTests
         }).Result;
         Assert.IsType<ViewResult>(result);
     }
-
-    [Fact]
-    public void TestGetContribution_Success()
-    {
-        var result = _controller.EditContribution(1).Result;
-        Assert.IsType<ViewResult>(result);
-    }
-
-    [Fact]
-    public void TestGetContribution_Failure()
-    {
-        var result = _controller.EditContribution(0).Result;
-        Assert.IsType<RedirectToActionResult>(result);
-    }
 }

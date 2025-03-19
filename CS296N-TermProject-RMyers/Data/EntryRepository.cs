@@ -13,8 +13,8 @@ public class EntryRepository : IEntryRepository
     }
     public async Task<List<Article>> GetAllArticlesAsync()
     {
-        var articles = await _context.Articles.Include(a => a.Author).Include(
-            a => a.Category).ToListAsync();
+        var articles = await _context.Articles.Include(a => a.Author)
+            .Include(a => a.Category).ToListAsync();
         return articles;
     }
 
@@ -43,11 +43,6 @@ public class EntryRepository : IEntryRepository
         var selection = count < _context.Articles.Count() ? ids.GetRange(0, count) : ids;
         return selection;
     }
-
-    /*public List<AppUser> GetAllUsers()
-    {
-        return _context.AppUsers.ToList();
-    }*/
 
     public async Task<Article?> GetArticleByIdAsync(int id)
     {
